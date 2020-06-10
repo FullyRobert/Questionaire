@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', accountRouter); //空路由默认转移到账户管理路由上
 app.use('/account', accountRouter);   //账户管理路由
+app.use('/manage', manageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

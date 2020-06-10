@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-textdirection="ltr" class="loading">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+  <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
+  <meta name="author" content="PIXINVENT">
+  <title>问卷管理</title>
+  <link rel="apple-touch-icon" sizes="60x60" href="../app-assets/images/ico/apple-icon-60.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../app-assets/images/ico/apple-icon-76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../app-assets/images/ico/apple-icon-120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../app-assets/images/ico/apple-icon-152.png">
+  <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
+  <link rel="shortcut icon" type="image/png" href="../app-assets/images/ico/favicon-32.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <!-- BEGIN VENDOR CSS-->
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap.css">
+  <!-- font icons-->
+  <link rel="stylesheet" type="text/css" href="../app-assets/fonts/icomoon.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/fonts/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/pace.css">
+  <!-- END VENDOR CSS-->
+  <!-- BEGIN ROBUST CSS-->
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap-extended.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/app.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/colors.css">
+  <!-- END ROBUST CSS-->
+  <!-- BEGIN Page Level CSS-->
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/documentation.css">
+  <!-- END Page Level CSS-->
+  <!-- BEGIN Custom CSS-->
+  <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
+  <!-- END Custom CSS-->
+  <style type="text/css">
+    .cursor {
+      cursor: pointer;
+    }
+  </style>>
+</head>
+
+
+<body data-open="click" data-menu="vertical-menu" data-col="2-columns" class="vertical-layout vertical-menu 2-columns  fixed-navbar">
+  <!-- - var navbarCustom = "navbar-fixed-top navbar-semi-dark navbar-shadow"-->
+  <!-- navbar-fixed-top-->
+  <nav class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-semi-dark navbar-shadow">
+    <div class="navbar-wrapper">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav">
+          <li class="nav-item"><a href="/account/account" class="navbar-brand nav-link">调查问卷系统</a></li> 
+          <li class="nav-item hidden-md-up float-xs-right"><a data-toggle="collapse" data-target="#navbar-mobile" class="nav-link open-navbar-container"><i class="icon-ellipsis pe-2x fa-rotate-90"></i></a></li>
+        </ul>
+      </div>
+      <div class="navbar-container content">
+        <div id="navbar-mobile" class="collapse navbar-toggleable-sm">
+          <ul class="nav navbar-nav">
+            <li class="nav-item hidden-sm-down"><a class="nav-link nav-menu-main menu-toggle hidden-xs"><i class="icon-menu5"></i></a></li>
+          </ul>
+          <ul class="nav navbar-nav float-xs-right">
+            <li class="nav-item"><a id = "login-btn" class="btn btn-success btn-doc-header"><i class="icon-bag3"></i>退出</a></li>
+            <li class="nav-item"><a href="/account/account" class="btn btn-success btn-doc-header"><i class="icon-bag3"></i>我的</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+  <!-- main menu-->
+  <div data-scroll-to-active="true" class="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
+    <!-- main menu header-->
+    <!-- / main menu header-->
+    <!-- main menu content-->
+    <div class="main-menu-content menu-accordion">
+      <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+        <li class=" nav-item">
+          <a href="/account/account"><i class="icon-home3"></i><span data-i18n="" class="menu-title">我的账户</span></a>
+        </li>
+        <li class="active"><a href=""><i class="icon-folder3"></i><span data-i18n="" class="menu-title">问卷管理</span></a>
+        </li>
+        </li>
+        <li class="nav-item"><a href="/statistics"><i class="icon-android-menu"></i><span data-i18n="" class="menu-title">数据统计</span></a>
+
+      </ul>
+    </div>
+    <!-- /main menu content-->
+    <!-- main menu footer-->
+    <!-- main menu footer-->
+  </div>
+  <!-- / main menu-->
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  <div class="app-content content container-fluid">
+    <div class="content-wrapper">
+      <div class="content-header row">
+        <div class="content-header-left col-md-10 col-xs-12 mb-1">
+          <button class="btn btn-success btn-md" data-toggle="modal" data-target="#newquestionaire">创建新问卷</button>
+          <!-- 模态框（Modal） -->
+          <div class="modal fade" id="newquestionaire" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">创建新问卷</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-body">
+                      <div class="form-group">
+                        <label for="eventInput1">问卷名称</label>
+                        <input type="text" id="title" class="form-control" placeholder="问卷名称" name="title">
+                      </div>
+  
+                      <div class="form-group">
+                        <label for="eventInput2">最大填写量</label>
+                        <input type="tel" id="maxnum" class="form-control" placeholder="最大填写量" name="maxnum">
+                      </div>
+                    </div>
+                  </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                      <button type="button" class="btn btn-info" id ="createsubmit">提交更改</button>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+          <ul class="nav nav-tabs nav-left" style="height: 50px;">
+            <li class="nav-item">
+              <a class="text-success nav-link" id="baseVerticalLeft-tab6" href="/manage/showlist?selector=3">所有问卷</a>
+            </li>
+            <li class="nav-item hidden-xs">
+              <a class="text-success nav-link" id="baseVerticalLeft-tab0" href="/manage/showlist?selector=0">未发布</a>
+            </li>
+            <li class="nav-item">
+              <a class="text-success nav-link" id="baseVerticalLeft-tab1" href="/manage/showlist?selector=1">已发布</a>
+            </li>
+            <li class="nav-item">
+              <a class="text-success nav-link" id="baseVerticalLeft-tab2" href="/manage/showlist?selector=2">已结束</a>
+            </li>
+          </ul>
+          
+        </div>
+        <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-2 col-xs-12">
+          <div class="breadcrumb-wrapper col-xs-12">
+            
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active">问卷总数：<%= length %>条</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="content-body"><!-- Overview -->
+        <% if (length == 0) { %>
+          <div class="card-block">
+            <div class="row">
+                <div class="alert alert-info alert-dismissible fade in mb-2" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>提示：这里一条记录也没有哦！</strong>
+                </div>
+            </div>
+          </div>
+        <% } %>
+        <% for (var i = 0; i < details.length; i++) { %>
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title"><%= details[i].title %></h4>
+              <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                  <% if (details[i].status == 0) {%>
+                    <li>未发布 &nbsp &nbsp &nbsp</li>
+                  <% } else if (details[i].status == 1) { %>
+                    <li>已发布 &nbsp &nbsp &nbsp</li>
+                  <% } else if (details[i].status == 2) { %>
+                    <li>已结束&nbsp &nbsp &nbsp</li>
+                  <% } %>
+                  <form action="/manage/delete" method="post" style="float: right;">
+                    <span class="tag tag-pill tag-danger cursor delete">删除问卷</span>
+                    <input type="hidden" name="pos" value="<%= i %>" />
+                  </form>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body collapse in" aria-expanded="true">
+              <div class="card-block">
+                <div class="table-responsive" >
+                  <table class="table table-hover table-striped">
+                    <tbody>
+                      <th>问卷名称</th>
+                      <th>当前状态</th>
+                      <th class="hidden-xs">最大填写量</th>
+                      <th>当前填写量</th>
+
+                      <% if (details[i].status != 0) { %>
+                        <th>填写链接</th>
+                        <th>结束时间</th>
+                      <% } %>
+
+                      <tr>
+                        <td><%= details[i].title %></td>
+
+                        <% if (details[i].status == 0) { %>
+                          <td>待发布</td>
+                        <% } %>
+                        <% if (details[i].status == 1) { %>
+                          <td>已发布</td>
+                        <% } %>
+                        <% if (details[i].status == 2) { %>
+                          <td>已结束</td>
+                        <% } %>
+
+                        <td class="hidden-xs"><%= details[i].maxnum %></td>
+                        <td><%= details[i].cur_num %></td>
+                        <% if (details[i].status != 0) { %>
+                          <td><%= details[i].url %></td>
+                          <td><%= dateFormat(details[i].end_time) %></td>
+                        <% } %>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+              <span class="tags float-xs-right">
+                <% if (details[i].status == 0) { %>
+                  <a href="/payment/orderinfo?oid=<%= compileStr('YCJ20190608' + details[i].order_id) %>&session=<%= compileStr('YCJ20190608' + i) %>" style="float: left">
+                    <span class="tag tag-pill tag-info">编辑问卷</span>
+                  </a>
+                  <a href="/payment/orderinfo?oid=<%= compileStr('YCJ20190608' + details[i].order_id) %>&session=<%= compileStr('YCJ20190608' + i) %>" style="float: left">
+                    <span class="tag tag-pill tag-success">发布问卷</span>
+                  </a>
+                <% } %>
+                <% if (details[i].status == 1) { %>
+                  <form action="/payment/confirmReceived" method="post">
+                    <span class="tag tag-pill tag-success cursor confirm_received">修改发布属性</span>
+                    <input type="hidden" name="pos" value="<%= i %>" />
+                  </form>
+                <% } %>
+                <% if (details[i].status == 2) { %>
+                  <a href="/payment/orderinfo?oid=<%= compileStr('YCJ20190608' + details[i].order_id) %>&session=<%= compileStr('YCJ20190608' + i) %>">
+                  <span class="tag tag-pill tag-success">查看统计结果</span></a>
+                <% } %>
+              </span>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    
+
+    <!-- BEGIN VENDOR JS-->
+    <script src="../app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
+    <script src="../app-assets/vendors/js/ui/tether.min.js" type="text/javascript"></script>
+    <script src="../app-assets/js/core/libraries/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../app-assets/vendors/js/ui/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+    <script src="../app-assets/vendors/js/ui/unison.min.js" type="text/javascript"></script>
+    <script src="../app-assets/vendors/js/ui/blockUI.min.js" type="text/javascript"></script>
+    <script src="../app-assets/vendors/js/ui/jquery.matchHeight-min.js" type="text/javascript"></script>
+    <script src="../app-assets/vendors/js/ui/screenfull.min.js" type="text/javascript"></script>
+    <script src="../app-assets/vendors/js/extensions/pace.min.js" type="text/javascript"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN ROBUST JS-->
+    <script src="../app-assets/js/core/app-menu.js" type="text/javascript"></script>
+    <script src="../app-assets/js/core/app.js" type="text/javascript"></script>
+    <!-- END ROBUST JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <script src="../app-assets/js/scripts/documentation.js" type="text/javascript"></script>
+    <script src="../app-assets/vendors/js/ui/affix.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL JS-->
+
+    <!--   [注]：实际使用时要把这段js代码藏好！虽然我在后端进行了二次检测数据是否被篡改。 -->
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+      });
+      $("#createsubmit").click(function () {
+        let title = $("#title").val();
+        let maxnum = $("#maxnum").val();
+  
+        if (title.length > 32) {
+          alert("问卷名过长");
+          return;
+        }
+  
+        if (title == null) {
+          alert("问卷名不能为空！");
+          return;
+        }
+  
+        $.ajax({
+          dataType: "JSON",
+          data: {
+            title: title,
+            maxnum: maxnum,
+          },
+          url: "/manage/create",
+          type: "POST",
+          success: function (data) {
+            if (data.status == 1) {
+              alert("创建成功");
+              window.location.href = "/manage/showlist"
+            }
+            else if (data.status == 0) {
+              alert("您输入的信息不完整");
+            }
+            else if (data.status == -1) {
+              alert("未知错误");
+            }
+          }
+        });
+      });
+    $("#login-btn").click(function () {
+    if (sessionStorage.getItem('loggedIn'))
+      $.post("/account/exit", function (data) {
+        if (data.status == 1) {
+          alert("登出成功");
+          sessionStorage.clear();
+          window.location.href="/account/login";
+        }
+        if (data.status == 0) alert("登出失败");
+      });
+    else
+      window.location.href = "/account/login";
+  });
+    </script>
+
+    <script type="text/javascript">
+      $(function(){
+        $("#baseVerticalLeft-tab<%= selector %>").addClass("active");
+      });
+      $(".delete").click(function(){
+        if (confirm("确认删除问卷吗，一旦删除将不可恢复！")) {
+          $(this).parents("form").submit();
+        }
+      });
+      $(".cancel_refund").click(function(){
+        if (confirm("确认取消退款吗？")) {
+          $(this).parents("form").submit();
+        }
+      });
+      $(".confirm_received").click(function(){
+        if (confirm("确认收货吗？")) {
+          $(this).parents("form").submit();
+        }
+      });
+    </script>
+
+  </body>
+  </html>

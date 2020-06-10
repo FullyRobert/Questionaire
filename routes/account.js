@@ -169,8 +169,8 @@ router.get("/login", (req, res) => {
   res.render("account/login");
 });
 
-router.get("/transaction", (req, res) => {
-  res.redirect("../payment");
+router.get("/manage", (req, res) => {
+  res.redirect("../manage");
 });
 
 router.get("/register", (req, res) => {
