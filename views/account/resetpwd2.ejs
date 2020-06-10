@@ -115,7 +115,7 @@
           success: function(data) {
               if (data.status == 1) {
                   alert("修改成功!");
-                  window.location.href = '/account/balance';
+                  window.location.href = '/account/account';
               } else if (data.status == 2) {
                   alert("输入密码不一致!");
                   $("#first-passwd").val("");

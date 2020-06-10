@@ -33,3 +33,30 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `questionaire`
+-- ----------------------------
+DROP TABLE IF EXISTS `questionaire`;
+CREATE TABLE `questionaire` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  `maxnum` int(11) NOT NULL DEFAULT '100',
+  `cur_num` int(11) NOT NULL DEFAULT '0',
+  `end_time` datetime,
+  `authority` int(1) NOT NULL DEFAULT '0',
+  `url` varchar(255),
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `questionaire_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of questionaire
+-- ----------------------------
+
+insert into questionaire (user_id, title, status) values(1,'test',0);
+insert into questionaire (user_id, title, status) values(1,'test2',1);
+insert into questionaire (user_id, title, status) values(1,'test3',2);
