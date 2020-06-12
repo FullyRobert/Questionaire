@@ -243,13 +243,13 @@
       let e = $("#phoneNumber").val();
       let h = $("#dateOfBirth").val();
 
-      if (a.length > 15) {
-        alert("用户名过长");
+      if (a.length < 7) {
+        alert("用户名过短，请重新设置！");
         return;
       }
 
-      if (b.length > 30) {
-        alert("登录密码过长");
+      if (b.length < 7) {
+        alert("登录密码过短，请重新设置！");
         return;
       }
 

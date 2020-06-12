@@ -42,6 +42,7 @@ CREATE TABLE `questionaire` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `title` varchar(64) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `maxnum` int(11) NOT NULL DEFAULT '100',
   `cur_num` int(11) NOT NULL DEFAULT '0',
@@ -57,9 +58,9 @@ CREATE TABLE `questionaire` (
 -- Records of questionaire
 -- ----------------------------
 
-insert into questionaire (user_id, title, status) values(1,'test',0);
-insert into questionaire (user_id, title, status) values(1,'test2',1);
-insert into questionaire (user_id, title, status) values(1,'test3',2);
+insert into questionaire (user_id, title, description, status) values(1,'test','这是一个测试问卷',0);
+insert into questionaire (user_id, title, description, status) values(1,'test2','这是一个测试问卷',1);
+insert into questionaire (user_id, title, description, status) values(1,'test3','这是一个测试问卷',2);
 
 -- ----------------------------
 -- Table structure for `question`
@@ -80,3 +81,15 @@ CREATE TABLE `question` (
   KEY `questionaire_id` (`questionaire_id`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`questionaire_id`) REFERENCES `questionaire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of question
+-- ----------------------------
+
+insert into question (questionaire_id, title, description, type) values(4,'下列课程哪一门是本学期的必修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',1);
+insert into question (questionaire_id, title, description, type) values(4,'下列课程哪一门是本学期的选修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',2);
+insert into question (questionaire_id, title, description, type) values(4,'请输入您的姓名','',3);
+insert into question (questionaire_id, title, description, type) values(4,'请输入您对本课程的评价','',4);
+insert into question (questionaire_id, title, description, type) values(4,'B/S软件体系的课程学时是？','',5);
+insert into question (questionaire_id, title, description, type) values(4,'B/S软件体系的课程学分是？','0.1',6);
+insert into question (questionaire_id, title, description, type) values(4,'请对本课程进行评分','5',7);

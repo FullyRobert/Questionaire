@@ -115,10 +115,15 @@
                         <label for="eventInput1">问卷名称</label>
                         <input type="text" id="title" class="form-control" placeholder="问卷名称" name="title">
                       </div>
+
+                      <div class="form-group">
+                        <label for="eventInput2">问卷说明</label>
+                        <input type="text" id="description" class="form-control" placeholder="问卷描述" name="description">
+                      </div>
   
                       <div class="form-group">
-                        <label for="eventInput2">最大填写量</label>
-                        <input type="tel" id="maxnum" class="form-control" placeholder="最大填写量" name="maxnum">
+                        <label for="eventInput3">最大填写量</label>
+                        <input type="number" id="maxnum" class="form-control" placeholder="最大填写量" name="maxnum">
                       </div>
                     </div>
                   </div>
@@ -170,7 +175,9 @@
         <% for (var i = 0; i < details.length; i++) { %>
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title"><%= details[i].title %></h4>
+                <h4 class="card-title"><%= details[i].title %></h4>
+              </br>
+                <h6 class="card-subtitle mb-1 text-muted"><em><%= details[i].description %></em></h6>
               <div class="heading-elements">
                 <ul class="list-inline mb-0">
                   <% if (details[i].status == 0) {%>
@@ -230,7 +237,7 @@
             <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
               <span class="tags float-xs-right">
                 <% if (details[i].status == 0) { %>
-                  <a href="/manage/editquestionaire" style="float: left">
+                  <a href="/manage/editquestionaire?questionaireid=<%=details[i].id %>&pos=<%= i %>" style="float: left">
                     <span class="tag tag-pill tag-info">编辑问卷</span>
                   </a>
                   <a href="/payment/orderinfo?oid=<%= compileStr('YCJ20190608' + details[i].order_id) %>&session=<%= compileStr('YCJ20190608' + i) %>" style="float: left">
@@ -284,6 +291,7 @@
       $("#createsubmit").click(function () {
         let title = $("#title").val();
         let maxnum = $("#maxnum").val();
+        let description = $("#description").val();
   
         if (title.length > 32) {
           alert("问卷名过长");
@@ -300,6 +308,7 @@
           data: {
             title: title,
             maxnum: maxnum,
+            description: description,
           },
           url: "/manage/create",
           type: "POST",

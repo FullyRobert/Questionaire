@@ -67,6 +67,18 @@ Date.prototype.format = function(fmt) {
   return fmt; 
 }
 
+// 字符串转换
+app.locals.trans = function(str){
+  return Number(str);
+}
+
+//字符串分割
+app.locals.strip = function(str){
+  var splitArray = new Array();
+  splitArray=str.split("|");
+  return splitArray;
+}
+
 app.locals.dateFormat = function(dateStr) {
   let date = new Date(dateStr);
   return date.format('yyyy-MM-dd hh:mm:ss');

@@ -80,7 +80,21 @@ router.get("/editquestionaire", function(req, res, next) {
 		return;
 	}
 	else {
-        res.render("./manage/editquestionaire");
+		mmodel.editquestionaire(req, res, (err, result) => {
+			if (err) {
+				console.log(err);
+				res.send("<script>alert('加载失败!');</script>").end();
+			} else {
+				req.session.question = result;
+				res.render("./manage/editquestionaire", {
+					id: req.query.questionaireid,
+					title: req.session.details[req.query.pos].title,
+					description : req.session.details[req.query.pos].description,
+					details: result,
+					length: result.length == null ? 0 : result.length,
+				});
+			}
+		});
     }
 });
 

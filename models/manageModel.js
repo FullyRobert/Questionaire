@@ -34,12 +34,13 @@ exported.create = async function (req, callback) {
 		let user_id= req.session.token.uid;
 		let title = req.body.title;
 		let maxnum = req.body.maxnum;
+		let description = req.body.description;
 		if (user_id == null ||title === undefined ||maxnum === undefined) {
 			callback(undefined, -1);
 		} else {
         let sqlinsert =
-			"insert into questionaire (user_id, title,maxnum) values(?,?,?)";
-        let param = [user_id,title,maxnum];
+			"insert into questionaire (user_id, title,description,maxnum) values(?,?,?,?)";
+        let param = [user_id,title,description,maxnum];
         let ret = await conn.query(sqlinsert,param);
 		callback(undefined, ret[0].id);
 		}
@@ -64,4 +65,23 @@ exported.delete = async(req, res, callback) => {
 		if (conn) conn.release();
 	}
 }
+
+//编辑问卷
+exported.editquestionaire = async (req, res, callback) => {
+	const conn = await pool.getConnection();
+	try {
+		let param = [];
+		let questionaireid = req.query.questionaireid;  //获取问卷id
+		let sql = "select * from question where questionaire_id = ? order by id";
+		param = [questionaireid];
+		let ret = await conn.query(sql, param); 
+		callback(undefined, ret[0]);
+	} catch (err) {
+		console.log(err);
+		callback(err, undefined);
+	} finally {
+		if (conn) conn.release();
+	}
+}
+
 module.exports = exported;
