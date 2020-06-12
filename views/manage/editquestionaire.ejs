@@ -129,129 +129,145 @@
                   </div><!-- /.modal-content -->
                 </div><!-- /.modal -->
             </div>
-          <ul class="nav nav-tabs nav-left" style="height: 50px;">
-            <li class="nav-item">
-              <a class="text-success nav-link" id="baseVerticalLeft-tab6" href="/manage/showlist?selector=3">所有问卷</a>
-            </li>
-            <li class="nav-item hidden-xs">
-              <a class="text-success nav-link" id="baseVerticalLeft-tab0" href="/manage/showlist?selector=0">未发布</a>
-            </li>
-            <li class="nav-item">
-              <a class="text-success nav-link" id="baseVerticalLeft-tab1" href="/manage/showlist?selector=1">已发布</a>
-            </li>
-            <li class="nav-item">
-              <a class="text-success nav-link" id="baseVerticalLeft-tab2" href="/manage/showlist?selector=2">已结束</a>
-            </li>
-          </ul>
           
-        </div>
-        <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-2 col-xs-12">
-          <div class="breadcrumb-wrapper col-xs-12">
-            
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item active">问卷总数：<%= length %>条</li>
-            </ol>
-          </div>
+          
         </div>
       </div>
       <div class="content-body"><!-- Overview -->
-        <% if (length == 0) { %>
-          <div class="card-block">
-            <div class="row">
-                <div class="alert alert-info alert-dismissible fade in mb-2" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <strong>提示：这里一条记录也没有哦！</strong>
-                </div>
-            </div>
-          </div>
-        <% } %>
-        <% for (var i = 0; i < details.length; i++) { %>
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title"><%= details[i].title %></h4>
+        <div class="card">
+          <div class="card-header">
+              <h4 class="card-title">Special title treatment</h4>
               <div class="heading-elements">
-                <ul class="list-inline mb-0">
-                  <% if (details[i].status == 0) {%>
-                    <li>未发布 &nbsp &nbsp &nbsp</li>
-                  <% } else if (details[i].status == 1) { %>
-                    <li>已发布 &nbsp &nbsp &nbsp</li>
-                  <% } else if (details[i].status == 2) { %>
-                    <li>已结束&nbsp &nbsp &nbsp</li>
-                  <% } %>
-                  <form action="/manage/delete" method="post" style="float: right;">
-                    <span class="tag tag-pill tag-danger cursor delete">删除问卷</span>
-                    <input type="hidden" name="pos" value="<%= i %>" />
-                  </form>
-                </ul>
+                  <ul class="list-inline mb-0">
+                      <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                      <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                      <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                  </ul>
               </div>
-            </div>
-            <div class="card-body collapse in" aria-expanded="true">
-              <div class="card-block">
-                <div class="table-responsive" >
-                  <table class="table table-hover table-striped">
-                    <tbody>
-                      <th>问卷名称</th>
-                      <th>当前状态</th>
-                      <th class="hidden-xs">最大填写量</th>
-                      <th>当前填写量</th>
-
-                      <% if (details[i].status != 0) { %>
-                        <th>填写链接</th>
-                        <th>结束时间</th>
-                      <% } %>
-
-                      <tr>
-                        <td><%= details[i].title %></td>
-
-                        <% if (details[i].status == 0) { %>
-                          <td>待发布</td>
-                        <% } %>
-                        <% if (details[i].status == 1) { %>
-                          <td>已发布</td>
-                        <% } %>
-                        <% if (details[i].status == 2) { %>
-                          <td>已结束</td>
-                        <% } %>
-
-                        <td class="hidden-xs"><%= details[i].maxnum %></td>
-                        <td><%= details[i].cur_num %></td>
-                        <% if (details[i].status != 0) { %>
-                          <td><%= details[i].url %></td>
-                          <td><%= dateFormat(details[i].end_time) %></td>
-                        <% } %>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-              <span class="tags float-xs-right">
-                <% if (details[i].status == 0) { %>
-                  <a href="/manage/editquestionaire" style="float: left">
-                    <span class="tag tag-pill tag-info">编辑问卷</span>
-                  </a>
-                  <a href="/payment/orderinfo?oid=<%= compileStr('YCJ20190608' + details[i].order_id) %>&session=<%= compileStr('YCJ20190608' + i) %>" style="float: left">
-                    <span class="tag tag-pill tag-success">发布问卷</span>
-                  </a>
-                <% } %>
-                <% if (details[i].status == 1) { %>
-                  <form action="/payment/confirmReceived" method="post">
-                    <span class="tag tag-pill tag-success cursor confirm_received">修改发布属性</span>
-                    <input type="hidden" name="pos" value="<%= i %>" />
-                  </form>
-                <% } %>
-                <% if (details[i].status == 2) { %>
-                  <a href="/payment/orderinfo?oid=<%= compileStr('YCJ20190608' + details[i].order_id) %>&session=<%= compileStr('YCJ20190608' + i) %>">
-                  <span class="tag tag-pill tag-success">查看统计结果</span></a>
-                <% } %>
-              </span>
-            </div>
           </div>
-        <% } %>
-      </div>
+          <div class="card-body collapse in" aria-expanded="true">
+              <div class="card-block">
+                <form class="form">
+                  <div class="row">
+                    <div class="col-xs-10 col-md-10 offset-md-1 offset-xs-1">
+                      <div class="form-body">
+
+                        <div class="form-group">
+                          <label>1. 单选题</label>
+                          <div class="input-group" id="typeOfUser">
+                            <label class="display-inline-block custom-control custom-radio ml-1">
+                              <input type="radio" name="typeOfUserRadio" name="customer1" value="Buy" checked
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0">我要买东西</span>
+                            </label>
+                          </br>
+                            <label class="display-inline-block custom-control custom-radio ml-1">
+                              <input type="radio" name="typeOfUserRadio" name="customer1" value="Sell"
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0">我要卖东西</span>
+                            </label>
+                          </br>
+                            <label class="display-inline-block custom-control custom-radio ml-1">
+                              <input type="radio" name="typeOfUserRadio" name="customer1" value="Admin"
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0">我要成为管理员</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label>2. 多选题</label>
+                          <div class="input-group" id="typeOfUser">
+                            <label class="display-inline-block custom-control custom-checkbox ml-1">
+                              <input type="checkbox" name="typeOfUserRadio" name="customer1" value="Buy" checked
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0">我要买东西</span>
+                            </label>
+                          </br>
+                            <label class="display-inline-block custom-control custom-checkbox ml-1">
+                              <input type="checkbox" name="typeOfUserRadio" name="customer1" value="Sell"
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0">我要卖东西</span>
+                            </label>
+                          </br>
+                            <label class="display-inline-block custom-control custom-checkbox ml-1">
+                              <input type="checkbox" name="typeOfUserRadio" name="customer1" value="Admin"
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0">我要成为管理员</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="eventInput4">3. 单行文本框</label>
+                          <input type="text" id="emailAddr" class="form-control" placeholder="emailAddr" name="email">
+                        </div>
+    
+                        <div class="form-group">
+                          <label for="eventInput4">4. 多行文本框</label>
+                        </br>
+                          <textarea rows="5" type="text" id="emailAddr" class="form-control" placeholder="emailAddr" name="email"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="eventInput1">5. 数字框</label>
+                          <input type="number" id="username" class="form-control" placeholder="username" name="fullname">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="eventInput1">6. 小数框</label>
+                          <input type="number" step="0.01" id="username" class="form-control" placeholder="username" name="fullname">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="eventInput1">7. 评分框</label>
+                          
+                          <table class="table table-hover" width="90%" cellspacing="0" cellpadding="2">
+                            <tbody>
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                                <th>7</th>
+                              <tr>
+                                <td><input type="radio" value="V8" name="R8"></td>
+                                <td><input type="radio" value="V8" name="R8"></td>
+                                <td><input type="radio" value="V8" name="R8"></td>
+                                <td><input type="radio" value="V8" name="R8"></td>
+                                <td><input type="radio" value="V8" name="R8"></td>
+                                <td><input type="radio" value="V8" name="R8"></td>
+                                <td><input type="radio" value="V8" name="R8"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+
+                </form>
+              </div>
+
+          </div>
+          <div class="card-footer">
+              <div class="form-actions center">
+                <button type="button" class="btn btn-warning mr-1" id="cancle">
+                  <i class="icon-cross2"></i> 取消
+                </button>
+                <button type="button" class="btn btn-primary" id="submit">
+                  <i class="icon-check2"></i> 提交
+                </button>
+              </div>
+          </div>
     
 
     <!-- BEGIN VENDOR JS-->
@@ -332,26 +348,6 @@
   });
     </script>
 
-    <script type="text/javascript">
-      $(function(){
-        $("#baseVerticalLeft-tab<%= selector %>").addClass("active");
-      });
-      $(".delete").click(function(){
-        if (confirm("确认删除问卷吗，一旦删除将不可恢复！")) {
-          $(this).parents("form").submit();
-        }
-      });
-      $(".cancel_refund").click(function(){
-        if (confirm("确认取消退款吗？")) {
-          $(this).parents("form").submit();
-        }
-      });
-      $(".confirm_received").click(function(){
-        if (confirm("确认收货吗？")) {
-          $(this).parents("form").submit();
-        }
-      });
-    </script>
 
   </body>
   </html>

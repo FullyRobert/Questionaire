@@ -15,12 +15,11 @@ router.get('/showlist', (req, res) => {
 		return;
 	}
 	//---------------------------
-	else{  //买家页面
+	else{ 
 		mmodel.select_questionaire(req, res, (err, result) => {
 			if (err) {
 				console.log(err);
 				res.send("<script>alert('加载失败!');</script>").end();
-				//res.send("<script>alert('加载失败！');window.location.href='/user/login'</script>").end();
 			} else {
 				req.session.details = result;
 				res.render('./manage/showlist', {
@@ -72,6 +71,17 @@ router.post('/delete', (req, res) => {
 			res.send("<script>alert('问卷删除成功!'); self.location = document.referrer;</script>");
 		}
 	});
+});
+
+//编辑问卷
+router.get("/editquestionaire", function(req, res, next) {
+	if (!req.session.token) {
+		res.send("<script>alert('登录态过期，请重新登录!');window.location.href='/';</script>").end();
+		return;
+	}
+	else {
+        res.render("./manage/editquestionaire");
+    }
 });
 
 module.exports = router;

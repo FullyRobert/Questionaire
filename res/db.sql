@@ -60,3 +60,23 @@ CREATE TABLE `questionaire` (
 insert into questionaire (user_id, title, status) values(1,'test',0);
 insert into questionaire (user_id, title, status) values(1,'test2',1);
 insert into questionaire (user_id, title, status) values(1,'test3',2);
+
+-- ----------------------------
+-- Table structure for `question`
+-- ----------------------------
+--type说明：1单选 2多选 3单行文本框 4多行文本框 5数字框 6小数框 7评分框 8（预留）地理位置框 9(预留)时间
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE `question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `questionaire_id` int(11) NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `description` varchar(255),
+  `type` int(1) NOT NULL DEFAULT '0',
+  `isparent` tinyint(1) NOT NULL DEFAULT '0',
+  `childnum` int(1) NOT NULL DEFAULT '0',
+  `ischild`  tinyint(1) NOT NULL DEFAULT '0',
+  `parentid` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `questionaire_id` (`questionaire_id`),
+  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`questionaire_id`) REFERENCES `questionaire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

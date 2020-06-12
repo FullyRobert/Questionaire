@@ -2,13 +2,13 @@ const pool = require('./conn_pool');
 const encrypt = require('../models/encrypt.js');
 let exported = {};
 
-//买家订单查询
+//问卷属性查询
 exported.select_questionaire = async (req, res, callback) => {
 	const conn = await pool.getConnection();
 	try {
 		let param = [];
 		let selector = req.query.selector; //GET方式获取参数
-		let user_id = req.session.token.uid;  //之后可能会修改
+		let user_id = req.session.token.uid;  //获取id
 		let sql = "select * from questionaire where user_id = ?";
 		if (selector >= 0 && selector <= 2) {
 			sql = sql + " and status = ? order by id desc; ";
@@ -27,6 +27,7 @@ exported.select_questionaire = async (req, res, callback) => {
 	}
 }
 
+//创建问卷
 exported.create = async function (req, callback) {
 	const conn = await pool.getConnection();
     try {
@@ -49,6 +50,7 @@ exported.create = async function (req, callback) {
     }
 },
 
+//删除问卷
 exported.delete = async(req, res, callback) => {
 	const conn = await pool.getConnection();
 	try {
