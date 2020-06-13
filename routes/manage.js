@@ -140,4 +140,39 @@ router.post("/delquestion", function(req, res) {
 		}
 	});
 });
+
+//发布问卷
+router.post('/public', (req, res) => {
+	//for developer to test
+	//req.session.token = token;
+	//--------------------------
+	if (!req.session.token) {
+		res.send("<script>alert('登录态过期，请重新登录!');window.location.href='/';</script>").end();
+		return;
+	}
+	mmodel.public(req, res, (err, ret) => {
+		if (err) {
+			res.send("<script>alert('问卷发布失败!'); self.location = document.referrer;</script>").end();
+		} else {
+			res.send("<script>alert('问卷发布成功!'); self.location = document.referrer;</script>");
+		}
+	});
+});
+
+router.post('/stoppublic', (req, res) => {
+	//for developer to test
+	//req.session.token = token;
+	//--------------------------
+	if (!req.session.token) {
+		res.send("<script>alert('登录态过期，请重新登录!');window.location.href='/';</script>").end();
+		return;
+	}
+	mmodel.stop(req, res, (err, ret) => {
+		if (err) {
+			res.send("<script>alert('停止发布失败!'); self.location = document.referrer;</script>").end();
+		} else {
+			res.send("<script>alert('问卷已经成功停止发布!'); self.location = document.referrer;</script>");
+		}
+	});
+});
 module.exports = router;

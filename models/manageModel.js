@@ -1,5 +1,7 @@
 const pool = require('./conn_pool');
 const encrypt = require('../models/encrypt.js');
+const { end } = require('./conn_pool');
+const systime = require('silly-datetime');
 let exported = {};
 
 //问卷属性查询
@@ -34,13 +36,15 @@ exported.create = async function (req, callback) {
 		let user_id= req.session.token.uid;
 		let title = req.body.title;
 		let maxnum = req.body.maxnum;
+		let publictype = req.body.publictype;
+		let enddate = req.body.enddate;
 		let description = req.body.description;
-		if (user_id == null ||title === undefined ||maxnum === undefined) {
+		if (user_id == null ||title === undefined ||maxnum === undefined || enddate === undefined || publictype === undefined) {
 			callback(undefined, -1);
 		} else {
         let sqlinsert =
-			"insert into questionaire (user_id, title,description,maxnum) values(?,?,?,?)";
-        let param = [user_id,title,description,maxnum];
+			"insert into questionaire (user_id, title,description,maxnum,authority,end_time) values(?,?,?,?,?,?)";
+        let param = [user_id,title,description,maxnum,publictype,enddate];
         let ret = await conn.query(sqlinsert,param);
 		callback(undefined, ret[0].id);
 		}
@@ -128,6 +132,38 @@ exported.delquestion = async(req, res, callback) => {
 		let id = req.body.questionnum;
 		let ret = await conn.query("delete from question where id = ?", [id]);
 		callback(undefined, ret[0].a);
+	} catch (err) {
+		console.log(err);
+		callback(err, undefined);
+	} finally {
+		if (conn) conn.release();
+	}
+}
+
+//发布问卷
+exported.public = async(req, res, callback) => {
+	const conn = await pool.getConnection();
+	try {
+		let id = req.session.details[req.body.pos].id;
+		let url = "http://localhost:3030/questionaire?id="+id;
+		await conn.query("UPDATE questionaire SET status = 1, url = ? where id = ?", [url,id]);
+		callback(undefined, "public_ok");
+	} catch (err) {
+		console.log(err);
+		callback(err, undefined);
+	} finally {
+		if (conn) conn.release();
+	}
+}
+
+//终止问卷
+exported.stop = async(req, res, callback) => {
+	const conn = await pool.getConnection();
+	try {
+		let id = req.session.details[req.body.pos].id;
+		let time=systime.format(new Date(), 'YYYY-MM-DD HH:mm:ss');
+		await conn.query("UPDATE questionaire SET status = 2, end_time = ? where id = ?", [time,id]);
+		callback(undefined, "stop_ok");
 	} catch (err) {
 		console.log(err);
 		callback(err, undefined);

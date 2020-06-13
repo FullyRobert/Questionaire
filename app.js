@@ -9,7 +9,6 @@ let encrypt = require('./models/encrypt.js');
 let accountRouter = require('./routes/account'); //账户管理路由
 let manageRouter = require('./routes/manage'); //问卷管理路由
 let app = express();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

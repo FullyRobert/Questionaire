@@ -101,7 +101,7 @@
       <div class="content-header row">
         <div class="content-header-left col-md-10 col-xs-12 mb-1">
           <button class="btn btn-success btn-md" data-toggle="modal" data-target="#newquestionaire">创建新问卷</button>
-          <!-- 模态框（Modal） -->
+          <!-- 模态框（Modal） 新建问卷用-->
           <div class="modal fade" id="newquestionaire" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -120,20 +120,35 @@
                         <label for="eventInput2">问卷说明</label>
                         <input type="text" id="description" class="form-control" placeholder="问卷描述" name="description">
                       </div>
+
+                      <div class="form-group">
+                        <label for="eventInput5">请选择问卷截止日期</label>
+                        <input type="date" id="enddate" class="form-control" name="contact" placeholder="enddate">
+                      </div>  
   
                       <div class="form-group">
-                        <label for="eventInput3">最大填写量</label>
-                        <input type="number" id="maxnum" class="form-control" placeholder="最大填写量" name="maxnum">
+                        <label for="eventInput2">请选择发布类型</label>
+                        <select id="publictype" class="combobox form-control selectpicker" name="publictype">
+                          <option></option>
+                          <option value="1" selected>仅注册用户可填写</option>
+                          <option value="2" >无需注册，填写一定次数</option>
+                          <option value="3">无需注册，每天可填写一定次数</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="eventInput3">可填写次数</label>
+                        <input type="number" id="maxnum" class="form-control" placeholder="可填写次数" name="maxnum">
                       </div>
                     </div>
                   </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                       <button type="button" class="btn btn-info" id ="createsubmit">提交更改</button>
-                    </div>
-                  </div><!-- /.modal-content -->
-                </div><!-- /.modal -->
-            </div>
+                  </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+          </div>
           <ul class="nav nav-tabs nav-left" style="height: 50px;">
             <li class="nav-item">
               <a class="text-success nav-link" id="baseVerticalLeft-tab6" href="/manage/showlist?selector=3">所有问卷</a>
@@ -201,12 +216,12 @@
                     <tbody>
                       <th>问卷名称</th>
                       <th>当前状态</th>
-                      <th class="hidden-xs">最大填写量</th>
-                      <th>当前填写量</th>
-
+                      <th class="hidden-xs">最大填写次数</th>
+                      <th>结束时间</th>
+                      
                       <% if (details[i].status != 0) { %>
                         <th>填写链接</th>
-                        <th>结束时间</th>
+                        <th>当前填写次数</th>
                       <% } %>
 
                       <tr>
@@ -223,10 +238,10 @@
                         <% } %>
 
                         <td class="hidden-xs"><%= details[i].maxnum %></td>
-                        <td><%= details[i].cur_num %></td>
+                        <td><%= dateFormat(details[i].end_time) %></td>
                         <% if (details[i].status != 0) { %>
-                          <td><%= details[i].url %></td>
-                          <td><%= dateFormat(details[i].end_time) %></td>
+                          <td><a href="<%= details[i].url %>"><%= details[i].url %></a></td>
+                          <td><%= details[i].cur_num %></td>                         
                         <% } %>
                       </tr>
                     </tbody>
@@ -237,16 +252,18 @@
             <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
               <span class="tags float-xs-right">
                 <% if (details[i].status == 0) { %>
-                  <a href="/manage/editquestionaire?questionaireid=<%=details[i].id %>&pos=<%= i %>" style="float: left">
+                  <a href="/manage/editquestionaire?questionaireid=<%=details[i].id %>&pos=<%= i %>">
                     <span class="tag tag-pill tag-info">编辑问卷</span>
                   </a>
-                  <a href="/payment/orderinfo?oid=<%= compileStr('YCJ20190608' + details[i].order_id) %>&session=<%= compileStr('YCJ20190608' + i) %>" style="float: left">
-                    <span class="tag tag-pill tag-success">发布问卷</span>
-                  </a>
+                  <form action="/manage/public" method="post">
+                    <span class="tag tag-pill tag-success cursor public">发布问卷</span>
+                    <input type="hidden" name="pos" value="<%= i %>" />
+                  </form>
+
                 <% } %>
                 <% if (details[i].status == 1) { %>
-                  <form action="/payment/confirmReceived" method="post">
-                    <span class="tag tag-pill tag-success cursor confirm_received">修改发布属性</span>
+                  <form action="/manage/stoppublic" method="post">
+                    <span class="tag tag-pill tag-warning cursor stop">终止发布</span>
                     <input type="hidden" name="pos" value="<%= i %>" />
                   </form>
                 <% } %>
@@ -293,7 +310,8 @@
         let title = $("#title").val();
         let maxnum = $("#maxnum").val();
         let description = $("#description").val();
-  
+        let publictype = $("#publictype").val();
+        let enddate = $("#enddate").val();
         if (title.length > 32) {
           alert("问卷名过长");
           return;
@@ -310,6 +328,8 @@
             title: title,
             maxnum: maxnum,
             description: description,
+            publictype:publictype,
+            enddate:enddate,
           },
           url: "/manage/create",
           type: "POST",
@@ -327,6 +347,7 @@
           }
         });
       });
+    
     $("#login-btn").click(function () {
     if (sessionStorage.getItem('loggedIn'))
       $.post("/account/exit", function (data) {
@@ -351,13 +372,13 @@
           $(this).parents("form").submit();
         }
       });
-      $(".cancel_refund").click(function(){
-        if (confirm("确认取消退款吗？")) {
+      $(".public").click(function(){
+        if (confirm("确认发布问卷吗？")) {
           $(this).parents("form").submit();
         }
       });
-      $(".confirm_received").click(function(){
-        if (confirm("确认收货吗？")) {
+      $(".stop").click(function(){
+        if (confirm("确认终止发布问卷吗？")) {
           $(this).parents("form").submit();
         }
       });
