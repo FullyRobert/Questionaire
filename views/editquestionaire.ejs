@@ -129,9 +129,8 @@
                       <label for="eventInput2">请选择问题类型</label>
                       <select id="questiontype" class="combobox form-control selectpicker" name="questiontype">
                         <option></option>
-                        <option value="0" selected>是非选择</option>
-                        <option value="1" selected>单项选择</option>
-                        <option value="2">多项选择</option>
+                        <option value="1" selected>单选题</option>
+                        <option value="2">多选题</option>
                         <option value="3">单行文本</option>
                         <option value="4">多行文本</option>
                         <option value="5">整数</option>
@@ -168,37 +167,6 @@
               </div><!-- /.modal-content -->
             </div><!-- /.modal -->
           </div>
-
-          <div class="modal fade" id="delquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="myModalLabel2">删除问题</h4>
-                </div>
-                <div class="modal-body">
-                  <form class="form" id="form2">
-
-                    <div class="form-group">
-                      <label for="eventInput2">请选择问题序号</label>
-                      <select id="questionnum" class="combobox form-control selectpicker" name="questionnum">
-                        <option></option>
-                        <% for (var i = 0; i < details.length; i++) { %>
-                          <option value="<%= details[i].id %>" selected><%= i+1 %></option>
-                        <% } %>
-                      </select>
-                    </div>
-
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                  <button type="button" class="btn btn-info" id="delsubmit">确认删除</button>
-                </div>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-          </div>
         </div>
       </div>
       <div class="content-body">
@@ -209,7 +177,6 @@
             <br/>
             <h6 class="card-subtitle mb-1 text-muted"><em><%= description %></em></h6>
             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#newquestion">新增问题</button>
-            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delquestion">删除问题</button>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
                 <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
@@ -238,26 +205,12 @@
                       </div>
                       <% } %>
                       <% for (var i = 0; i < details.length; i++) { %>
+                      <form action="/manage/delete" method="post" style="float: right;">
+                        <span class="tag tag-pill tag-danger cursor delete">删除问题</span>
+                        <input type="hidden" name="pos" value="<%= i %>" />
+                      </form>
                       <div class="form-group">
-                        <% if (details[i].type == 0) {%>
-                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %></label>
-                        <div class="input-group" id="typeOfUser">
-                          <label class="display-inline-block custom-control custom-radio ml-1">
-                            <input type="radio" name="typeOfUserRadio" name="customer1" value="0"
-                              class="custom-control-input">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description ml-0">&nbsp是</span>
-                          </label>
-                          <br/>
-                          <label class="display-inline-block custom-control custom-radio ml-1">
-                            <input type="radio" name="typeOfUserRadio" name="customer1" value="1"
-                              class="custom-control-input">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description ml-0">&nbsp否</span>
-                          </label>
-                          <br/>
-                        </div>
-                        <% } else if (details[i].type == 1) {%>
+                        <% if (details[i].type == 1) {%>
                         <label for="eventInput4"><%= i+1 %>. <%= details[i].title %></label>
                         <div class="input-group" id="typeOfUser">
                           <% var choice = strip(details[i].description) %>
@@ -383,7 +336,7 @@
         $("#type1").show();
         $("#type2").hide();
         $("#type3").hide();
-      } else if ($(this).val() == 0 || $(this).val() == 3 || $(this).val() == 4 || $(this).val() == 5) {
+      } else if ($(this).val() == 3 || $(this).val() == 4 || $(this).val() == 5) {
         $("#type1").hide();
         $("#type2").hide();
         $("#type3").hide();
@@ -399,27 +352,7 @@
         $("#type3").show();
       }
 
-    });
-    $("#delsubmit").click(function () {
-      $.ajax({
-        dataType: "JSON",
-        data: $('#form2').serialize(),
-        url: "/manage/delquestion",
-        type: "POST",
-        success: function (data) {
-          if (data.status == 1) {
-            alert("删除成功");
-            window.location.reload();
-          }
-          else if (data.status == 0) {
-            alert("您输入的信息不完整");
-          }
-          else if (data.status == -1) {
-            alert("未知错误");
-          }
-        }
-      });
-    });
+    })
     $("#createsubmit").click(function () {
       let title = $("#title").val();
       if (title.length == 0) {

@@ -86,6 +86,7 @@ router.get("/editquestionaire", function(req, res, next) {
 				res.send("<script>alert('加载失败!');</script>").end();
 			} else {
 				req.session.question = result;
+				req.session.questionaireid = req.query.questionaireid;
 				res.render("./manage/editquestionaire", {
 					id: req.query.questionaireid,
 					title: req.session.details[req.query.pos].title,
@@ -98,4 +99,45 @@ router.get("/editquestionaire", function(req, res, next) {
     }
 });
 
+//新增问题
+router.post("/newquestion", function(req, res) {
+	if (!req.session.token) {
+		res.send("<script>alert('登录态过期，请重新登录!');window.location.href='/';</script>").end();
+		return;
+	}
+	
+	mmodel.newquestion(req, function(err, ret) {
+	if (err) {
+		console.log(err);
+		res.send({ status: -1 }).end(); //服务器异常
+	} else {
+		if (ret < 0) {
+		  res.send({ status: 0 }).end(); //缺少信息
+		} else {
+		  res.send({ status: 1 }).end(); //成功
+		}
+	}
+	});
+});
+
+//删除问题
+router.post("/delquestion", function(req, res) {
+	if (!req.session.token) {
+		res.send("<script>alert('登录态过期，请重新登录!');window.location.href='/';</script>").end();
+		return;
+	}
+	
+	mmodel.delquestion(req, res, (err, result) => {
+		if (err) {
+			console.log(err);
+			res.send({ status: -1 }).end(); //服务器异常
+		} else {
+			if (ret < 0) {
+			  res.send({ status: 0 }).end(); //缺少信息
+			} else {
+			  res.send({ status: 1 }).end(); //成功
+			}
+		}
+	});
+});
 module.exports = router;
