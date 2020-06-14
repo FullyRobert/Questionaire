@@ -141,6 +141,27 @@ router.post("/delquestion", function(req, res) {
 	});
 });
 
+//新增级联问题
+router.post("/cascadequestion", function(req, res) {
+	if (!req.session.token) {
+		res.send("<script>alert('登录态过期，请重新登录!');window.location.href='/';</script>").end();
+		return;
+	}
+	
+	mmodel.casquestion(req, function(err, ret) {
+	if (err) {
+		console.log(err);
+		res.send({ status: -1 }).end(); //服务器异常
+	} else {
+		if (ret < 0) {
+		  res.send({ status: 0 }).end(); //缺少信息
+		} else {
+		  res.send({ status: 1 }).end(); //成功
+		}
+	}
+	});
+});
+
 //发布问卷
 router.post('/public', (req, res) => {
 	//for developer to test
@@ -159,6 +180,7 @@ router.post('/public', (req, res) => {
 	});
 });
 
+//终止发布问卷
 router.post('/stoppublic', (req, res) => {
 	//for developer to test
 	//req.session.token = token;

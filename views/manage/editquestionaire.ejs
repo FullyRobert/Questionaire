@@ -109,7 +109,7 @@
     <div class="content-wrapper">
       <div class="content-header row">
         <div class="content-header-left col-md-10 col-xs-12 mb-1">
-          <!-- 模态框（Modal） -->
+          <!-- 模态框（Modal） 新增问题用-->
           <div class="modal fade" id="newquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -128,7 +128,6 @@
                     <div class="form-group">
                       <label for="eventInput2">请选择问题类型</label>
                       <select id="questiontype" class="combobox form-control selectpicker" name="questiontype">
-                        <option></option>
                         <option value="0" selected>是非选择</option>
                         <option value="1" >单项选择</option>
                         <option value="2">多项选择</option>
@@ -183,7 +182,6 @@
                     <div class="form-group">
                       <label for="eventInput2">请选择问题序号</label>
                       <select id="questionnum" class="combobox form-control selectpicker" name="questionnum">
-                        <option></option>
                         <% for (var i = 0; i < details.length; i++) { %>
                           <option value="<%= details[i].id %>" selected><%= i+1 %></option>
                         <% } %>
@@ -199,17 +197,93 @@
               </div><!-- /.modal-content -->
             </div><!-- /.modal -->
           </div>
+
+          <!-- 级联问题 -->
+          <div class="modal fade" id="cascadequestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">新增级联问题</h4>
+                </div>
+                <div class="modal-body">
+                  <form class="form" id="form3">
+                    <div class="form-group">
+                      <label for="eventInput2">请选择需要增加级联的问题序号（仅是非选择题可增加级联）</label>
+                      <select id="cascadeid" class="combobox form-control selectpicker" name="cascadeid">
+                        <% for (var i = 0; i < details.length; i++) { %>
+                          <% if (details[i].type == 0) {%>
+                            <option value="<%= details[i].id %>"><%= i+1 %></option>
+                          <% }%>
+                        <% } %>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventInput2">请选择需要增加级联的选项</label>
+                      <select id="cascadechoice" class="combobox form-control selectpicker" name="cascadechoice">
+                        <option value="1" selected>是</option>
+                        <option value="0">否</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventInput1">请输入新问题标题</label>
+                      <input type="text" id="castitle" class="form-control" placeholder="请输入" name="castitle">
+                    </div>
+          
+                    <div class="form-group">
+                      <label for="eventInput2">请选择问题类型</label>
+                      <select id="cascadetype" class="combobox form-control selectpicker" name="cascadetype">
+                        <option value="0" selected>是非选择</option>
+                        <option value="1">单项选择</option>
+                        <option value="2">多项选择</option>
+                        <option value="3">单行文本</option>
+                        <option value="4">多行文本</option>
+                        <option value="5">整数</option>
+                        <option value="6">小数</option>
+                        <option value="7">评分</option>
+                      </select>
+                    </div>
+          
+                    <div class="form-group" id=type4>
+                      <label for="eventInput3">请输入各个选项内容：</label>
+                      <input type="text" id="a" class="form-control" placeholder="A" name="a">
+                      <input type="text" id="b" class="form-control" placeholder="B" name="b">
+                      <input type="text" id="c" class="form-control" placeholder="C" name="c">
+                      <input type="text" id="d" class="form-control" placeholder="D" name="d">
+                    </div>
+          
+                    <div class="form-group" id=type5>
+                      <label for="eventInput4">请输入填写数字的最小精度值(最小为万分之一）：</label>
+                      <input type="number" step="0.0001" id="accuracy" class="form-control" placeholder="请输入" name="accuracy">
+                    </div>
+          
+                    <div class="form-group" id=type6>
+                      <label for="eventInput5">请输入评分项数（不超过10）:</label>
+                      <input type="number" id="" class="form-control" placeholder="请输入" name="num">
+                    </div>
+          
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  <button type="button" class="btn btn-info" id="cascadesubmit">确认创建</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+          </div>
+
         </div>
       </div>
       <div class="content-body">
         <!-- Overview -->
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"><%= title %></h4>
+            <h4 class="card-title" align="center"><%= title %></h4>
             <br/>
             <h6 class="card-subtitle mb-1 text-muted"><em><%= description %></em></h6>
             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#newquestion">新增问题</button>
             <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delquestion">删除问题</button>
+            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#cascadequestion">新增级联问题</button>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
                 <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
@@ -239,15 +313,21 @@
                       <% } %>
                       <% for (var i = 0; i < details.length; i++) { %>
                       <div class="form-group">
+                        <% if (details[i].ischild == 1) {%>
+                          <% var alert = "[本题为第" + details[i].parentid + "题的子问题]" %>
+                        <% } else if (details[i].ischild == 0) {%>
+                          <% var alert = "" %>
+                        <% } %>
                         <% if (details[i].type == 0) {%>
-                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %></label>
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i> </label>
                         <div class="input-group" id="typeOfUser">
-                          <label class="display-inline-block custom-control custom-radio ml-1">
+                          <label class="display-inline-block custom-control custom-radio ml-1"> 
                             <input type="radio" name="typeOfUserRadio" name="customer1" value="0"
                               class="custom-control-input">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description ml-0">&nbsp是</span>
                           </label>
+                          
                           <br/>
                           <label class="display-inline-block custom-control custom-radio ml-1">
                             <input type="radio" name="typeOfUserRadio" name="customer1" value="1"
@@ -256,9 +336,10 @@
                             <span class="custom-control-description ml-0">&nbsp否</span>
                           </label>
                           <br/>
+                          
                         </div>
                         <% } else if (details[i].type == 1) {%>
-                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %></label>
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i></label>
                         <div class="input-group" id="typeOfUser">
                           <% var choice = strip(details[i].description) %>
                           <% for (var m = 0; m < choice.length; m++) { %>
@@ -273,7 +354,7 @@
                         </div>
                         <!-- 多选 -->
                         <% } else if (details[i].type == 2) {%>
-                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %></label>
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i> </label>
                         <div class="input-group" id="typeOfUser">
                           <% var choice = strip(details[i].description) %>
                           <% for (var m = 0; m < choice.length; m++) { %>
@@ -288,28 +369,28 @@
                         </div>
                         <!-- 单行文本 -->
                         <% } else if (details[i].type == 3) {%>
-                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %></label>
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i> </label>
                         <input type="text" id="question<%= i+1 %>" class="form-control" placeholder="请输入"
                           name="<%= i+1 %>">
                         <!-- 多行文本 -->
                         <% } else if (details[i].type == 4){ %>
-                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %></label>
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i> </label>
                         <br/>
                         <textarea rows="5" type="text" id="question<%= i+1 %>" class="form-control" placeholder="请输入"
                           name="<%= i+1 %>"></textarea>
                         <!-- 数字 -->
                         <% } else if (details[i].type == 5){ %>
-                        <label for="eventInput1"><%= i+1 %>. <%= details[i].title %></label>
+                        <label for="eventInput1"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i></label>
                         <input type="number" id="question<%= i+1 %>" class="form-control" placeholder="请输入"
                           name="<%= i+1 %>">
                         <!-- 小数 -->
                         <% } else if (details[i].type == 6){ %>
-                        <label for="eventInput1"><%= i+1 %>. <%= details[i].title %></label>
+                        <label for="eventInput1"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i></label>
                         <input type="number" step="<%= details[i].description %>" id="question<%= i+1 %>"
                           class="form-control" placeholder="请输入" name="<%= i+1 %>">
                         <!-- 评分 -->
                         <% } else if (details[i].type == 7){ %>
-                        <label for="eventInput1"><%= i+1 %>. <%= details[i].title %></label>
+                        <label for="eventInput1"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i></label>
                         <table class="table table-hover" width="90%" cellspacing="0" cellpadding="2">
                           <tbody>
                             <% for (var j = 1; j <= trans(details[i].description); j++) { %>
@@ -377,6 +458,9 @@
       $("#type1").hide();
       $("#type2").hide();
       $("#type3").hide();
+      $("#type4").hide();
+      $("#type5").hide();
+      $("#type6").hide();
     });
     $("#questiontype").change(function () {
       if ($(this).val() == 1 || $(this).val() == 2) {
@@ -397,6 +481,28 @@
         $("#type1").hide();
         $("#type2").hide();
         $("#type3").show();
+      }
+
+    });
+    $("#cascadetype").change(function () {
+      if ($(this).val() == 1 || $(this).val() == 2) {
+        $("#type4").show();
+        $("#type5").hide();
+        $("#type6").hide();
+      } else if ($(this).val() == 0 || $(this).val() == 3 || $(this).val() == 4 || $(this).val() == 5) {
+        $("#type4").hide();
+        $("#type5").hide();
+        $("#type6").hide();
+      }
+      else if ($(this).val() == 6) {
+        $("#type4").hide();
+        $("#type5").show();
+        $("#type6").hide();
+      }
+      else if ($(this).val() == 7) {
+        $("#type4").hide();
+        $("#type5").hide();
+        $("#type6").show();
       }
 
     });
@@ -431,6 +537,32 @@
         dataType: "JSON",
         data: $('#form1').serialize(),
         url: "/manage/newquestion",
+        type: "POST",
+        success: function (data) {
+          if (data.status == 1) {
+            alert("创建成功");
+            window.location.reload();
+          }
+          else if (data.status == 0) {
+            alert("您输入的信息不完整");
+          }
+          else if (data.status == -1) {
+            alert("未知错误");
+          }
+        }
+      });
+    });
+    $("#cascadesubmit").click(function () {
+      let title = $("#castitle").val();
+      if (title.length == 0) {
+        alert("标题不能为空！");
+        return;
+      }
+
+      $.ajax({
+        dataType: "JSON",
+        data: $('#form3').serialize(),
+        url: "/manage/cascadequestion",
         type: "POST",
         success: function (data) {
           if (data.status == 1) {

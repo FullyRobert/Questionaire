@@ -74,7 +74,8 @@ CREATE TABLE `question` (
   `description` varchar(255),
   `type` int(1) NOT NULL DEFAULT '0',
   `isparent` tinyint(1) NOT NULL DEFAULT '0',
-  `childnum` int(1) NOT NULL DEFAULT '0',
+  `childyes` int(11) NOT NULL DEFAULT '0',
+  `childno` int(11) NOT NULL DEFAULT '0',
   `ischild`  tinyint(1) NOT NULL DEFAULT '0',
   `parentid` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -86,10 +87,10 @@ CREATE TABLE `question` (
 -- Records of question
 -- ----------------------------
 
-insert into question (questionaire_id, title, description, type) values(4,'下列课程哪一门是本学期的必修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',1);
-insert into question (questionaire_id, title, description, type) values(4,'下列课程哪一门是本学期的选修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',2);
-insert into question (questionaire_id, title, description, type) values(4,'请输入您的姓名','',3);
-insert into question (questionaire_id, title, description, type) values(4,'请输入您对本课程的评价','',4);
-insert into question (questionaire_id, title, description, type) values(4,'B/S软件体系的课程学时是？','',5);
-insert into question (questionaire_id, title, description, type) values(4,'B/S软件体系的课程学分是？','0.1',6);
-insert into question (questionaire_id, title, description, type) values(4,'请对本课程进行评分','5',7);
+insert into question (questionaire_id, title, description, type) values(12,'下列课程哪一门是本学期的必修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',1);
+insert into question (questionaire_id, title, description, type) values(12,'下列课程哪一门是本学期的选修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',2);
+insert into question (questionaire_id, title, description, type) values(12,'请输入您的姓名','',3);
+insert into question (questionaire_id, title, description, type) values(12,'请输入您对本课程的评价','',4);
+insert into question (questionaire_id, title, description, type) values(12,'B/S软件体系的课程学时是？','',5);
+insert into question (questionaire_id, title, description, type) values(12,'B/S软件体系的课程学分是？','0.1',6);
+insert into question (questionaire_id, title, description, type) values(12,'请对本课程进行评分','5',7);
