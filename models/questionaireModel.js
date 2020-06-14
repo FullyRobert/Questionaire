@@ -1,6 +1,5 @@
 const pool = require('./conn_pool');
 const encrypt = require('../models/encrypt.js');
-const { end } = require('./conn_pool');
 const systime = require('silly-datetime');
 let exported = {};
 
@@ -39,5 +38,48 @@ exported.showquestionaire = async (req, res, callback) => {
 		if (conn) conn.release();
 	}
 }
+
+//将问卷数据录入数据库
+exported.submit = async function (req, callback) {
+	const conn = await pool.getConnection();
+    try {
+		let sqlinsert = "";
+		let param = [];
+		let id= req.session.questionaireid;
+		let data = req.body;
+		let keys = Object.keys(data);
+		let values = Object.values(data);
+		//将填写用户、填写时间写入数据库
+		let time=systime.format(new Date(), 'YYYY-MM-DD HH:mm:ss');
+		sqlinsert ="insert into data_record (user_id,username,questionaire_id,end_time) values(?,?,?,?)";
+		if (!req.session.token) 
+			param = ["-1","游客",id,time];
+		else
+			param = [req.session.token.uid,req.session.token.username,id,time];
+		let ret = await conn.query(sqlinsert,param);
+		//将问题答案写入数据库
+		for (var i =0; i<keys.length;i++){
+			if (values[i]!=""){
+				sqlinsert =
+				"insert into data_question (questionaire_id, question_id, answer,record_id) values(?,?,?,?)";
+				if (Object.prototype.toString.call(values[i])=='[object Array]'){
+					let answer = values[i].join('');
+					param = [id,keys[i],answer,ret[0].insertId];
+				}
+				else
+					param = [id,keys[i],values[i],ret[0].insertId];
+				await conn.query(sqlinsert,param);
+			}
+		}
+		//更新填写量
+		let sqlupdate = "update questionaire set cur_num=cur_num+1 where id = ?";
+		await conn.query(sqlupdate,id);
+		callback(undefined, 1);
+		conn.release();
+	}
+	catch (err) {
+		callback(err, undefined);
+    }
+},
 
 module.exports = exported;

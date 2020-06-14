@@ -94,3 +94,31 @@ insert into question (questionaire_id, title, description, type) values(12,'请�
 insert into question (questionaire_id, title, description, type) values(12,'B/S软件体系的课程学时是？','',5);
 insert into question (questionaire_id, title, description, type) values(12,'B/S软件体系的课程学分是？','0.1',6);
 insert into question (questionaire_id, title, description, type) values(12,'请对本课程进行评分','5',7);
+
+-- ----------------------------
+-- Table structure for `data`
+-- ----------------------------
+DROP TABLE IF EXISTS `data_question`;
+CREATE TABLE `data_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `questionaire_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `record_id` int(11) NOT NULL,
+  `answer` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `question_id` (`question_id`),
+  CONSTRAINT `data_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `data_record`;
+CREATE TABLE `data_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `username` varchar(11) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '用户名',
+  `questionaire_id` int(11) NOT NULL,
+  `end_time` datetime,
+  `ip` varchar(64) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `questionaire_id` (`questionaire_id`),
+  CONSTRAINT `record_ibfk_1` FOREIGN KEY (`questionaire_id`) REFERENCES `questionaire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

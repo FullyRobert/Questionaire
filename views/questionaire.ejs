@@ -78,7 +78,7 @@
               </div>
               <div class="card-body collapse in" aria-expanded="true">
                 <div class="card-block">
-                  <form class="form">
+                  <form class="form" id="form1">
                     <div class="row">
                       <div class="col-xs-12 col-md-10 col-lg-10 offset-md-1 offset-xs-0 offset-lg-1">
                         <div class="form-body">
@@ -103,16 +103,16 @@
                           <% }%>
                             <% if (details[i].type == 0) {%>
                             <label for="eventInput4"><%= details[i].title %></label>
-                            <div class="input-group" id="typeOfUser">
+                            <div class="input-group" id="<%= details[i].id %>">
                               <label class="display-inline-block custom-control custom-radio ml-1">
-                                <input type="radio" name="typeOfUserRadio" name="customer1" value="1"
+                                <input type="radio" name="<%= details[i].id %>" name="customer1" value="1"
                                   class="custom-control-input yes" id = "<%= details[i].childyes %>|<%= details[i].childno %>">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description ml-0">&nbsp是</span>
                               </label>
                               <br />
                               <label class="display-inline-block custom-control custom-radio ml-1">
-                                <input type="radio" name="typeOfUserRadio" name="customer1" value="0"
+                                <input type="radio" name="<%= details[i].id %>" name="customer1" value="0"
                                   class="custom-control-input no" id = "<%= details[i].childno %>|<%= details[i].childyes %>">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description ml-0">&nbsp否</span>
@@ -121,11 +121,11 @@
                             </div>
                             <% } else if (details[i].type == 1) {%>
                             <label for="eventInput4"><%= details[i].title %></label>
-                            <div class="input-group" id="typeOfUser">
+                            <div class="input-group" id="<%= details[i].id %>">
                               <% var choice = strip(details[i].description) %>
                               <% for (var m = 0; m < choice.length; m++) { %>
                               <label class="display-inline-block custom-control custom-radio ml-1">
-                                <input type="radio" name="typeOfUserRadio" name="customer1" value="<%= m+1 %>"
+                                <input type="radio" name="<%= details[i].id %>" name="customer1" value="<%= m+1 %>"
                                   class="custom-control-input">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description ml-0"><%= choice[m]%></span>
@@ -136,11 +136,11 @@
                             <!-- 多选 -->
                             <% } else if (details[i].type == 2) {%>
                             <label for="eventInput4"> <%= details[i].title %></label>
-                            <div class="input-group" id="typeOfUser">
+                            <div class="input-group" id="<%= details[i].id %>">
                               <% var choice = strip(details[i].description) %>
                               <% for (var m = 0; m < choice.length; m++) { %>
                               <label class="display-inline-block custom-control custom-checkbox ml-1">
-                                <input type="checkbox" name="typeOfUserRadio" name="customer1" value="<%= m+1 %>"
+                                <input type="checkbox" name="<%= details[i].id %>" name="customer1" value="<%= m+1 %>"
                                   class="custom-control-input">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description ml-0"><%= choice[m]%></span>
@@ -152,28 +152,27 @@
                             <% } else if (details[i].type == 3) {%>
                             <label for="eventInput4"> <%= details[i].title %></label>
                             <input type="text" id="question<%= i+1 %>" class="form-control" placeholder="请输入"
-                              name="<%= i+1 %>">
+                              name="<%= details[i].id %>">
                             <!-- 多行文本 -->
                             <% } else if (details[i].type == 4){ %>
                             <label for="eventInput4"> <%= details[i].title %></label>
                             <br />
                             <textarea rows="5" type="text" id="question<%= i+1 %>" class="form-control"
-                              placeholder="请输入" name="<%= i+1 %>"></textarea>
+                              placeholder="请输入" name="<%= details[i].id %>"></textarea>
                             <!-- 数字 -->
                             <% } else if (details[i].type == 5){ %>
                             <label for="eventInput1"> <%= details[i].title %></label>
                             <input type="number" id="question<%= i+1 %>" class="form-control" placeholder="请输入"
-                              name="<%= i+1 %>">
+                              name="<%= details[i].id %>">
                             <!-- 小数 -->
                             <% } else if (details[i].type == 6){ %>
                             <label for="eventInput1"><%= details[i].title %></label>
                             <input type="number" step="<%= details[i].description %>" id="question<%= i+1 %>"
-                              class="form-control" placeholder="请输入" name="<%= i+1 %>">
+                              class="form-control" placeholder="请输入" name="<%= details[i].id %>">
                             <!-- 评分 -->
                             <% } else if (details[i].type == 7){ %>
                             <label for="eventInput1"> <%= details[i].title %></label>
-                            <div class=table-responsive">
-                            <table class="table table-hover text-nowrap" width="50%" cellspacing="0" cellpadding="0">
+                            <table class="table table-hover " width="90%" cellspacing="0" cellpadding="2">
                               <thead></thead>
                               <tbody>
                                 <% for (var j = 1; j <= trans(details[i].description); j++) { %>
@@ -181,12 +180,11 @@
                                 <% } %>
                                 <tr>
                                   <% for (var k = 1; k <= trans(details[i].description); k++) { %>
-                                  <td><input type="radio" value="<%= j %>" name="R<%= j %>"></td>
+                                  <td><input type="radio" value="<%= k %>" name="<%= details[i].id %>"></td>
                                   <% } %>
                                 </tr>
                               </tbody>
                             </table>
-                            </div>
                             <% } %>
                           </div>
                           <% } %>
@@ -200,12 +198,9 @@
 
               <div class="card-footer">
                 <div class="form-actions center">
-                  <button type="button" class="btn btn-warning mr-1" id="cancle">
-                    <i class="icon-cross2"></i> 取消
-                  </button>
-                  <button type="button" class="btn btn-primary" id="submit">
-                    <i class="icon-check2"></i> 提交
-                  </button>
+                      <button type="button" class="btn btn-primary float-xs-right" questionaire="<%= questionaire[0].id %>"id="submit">
+                        <i class="icon-check2"></i> 提交
+                      </button>
                 </div>
               </div>
             </div>
@@ -255,6 +250,28 @@
       var no =  "."+id[0];
       $(no).show();
       $(yes).hide();
+    });
+    $("#submit").click(function () {
+      var data = $('#form1').serialize();
+      var id = $(this).attr("questionaire");
+      $.ajax({
+        dataType: "JSON",
+        data: $('#form1').serialize(),
+        url: "/questionaire/submit",
+        type: "POST",
+        success: function (data) {
+          if (data.status == 1) {
+            alert("提交成功");
+            window.close();
+          }
+          else if (data.status == 0) {
+            alert("您输入的信息不完整");
+          }
+          else if (data.status == -1) {
+            alert("未知错误");
+          }
+        }
+      });
     });
   </script>
 

@@ -129,7 +129,7 @@ code {
   border-top: table-borderless; }
 
 .table th, .table td {
-  padding: 0.75rem 2rem; }
+  padding: 0.75rem 0.25rem; }
 
 .table.table-xl th, .table.table-xl td {
   padding: 1.25rem 2rem; }

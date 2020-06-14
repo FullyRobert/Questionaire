@@ -1,6 +1,5 @@
 const pool = require('./conn_pool');
 const encrypt = require('../models/encrypt.js');
-const { end } = require('./conn_pool');
 const systime = require('silly-datetime');
 let exported = {};
 

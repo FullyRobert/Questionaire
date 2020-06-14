@@ -320,9 +320,9 @@
                         <% } %>
                         <% if (details[i].type == 0) {%>
                         <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i> </label>
-                        <div class="input-group" id="typeOfUser">
+                        <div class="input-group" id="<%= details[i].id %>">
                           <label class="display-inline-block custom-control custom-radio ml-1"> 
-                            <input type="radio" name="typeOfUserRadio" name="customer1" value="0"
+                            <input type="radio" name="<%= details[i].id %>" name="customer1" value="0"
                               class="custom-control-input">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description ml-0">&nbsp是</span>
@@ -330,7 +330,7 @@
                           
                           <br/>
                           <label class="display-inline-block custom-control custom-radio ml-1">
-                            <input type="radio" name="typeOfUserRadio" name="customer1" value="1"
+                            <input type="radio" name="<%= details[i].id %>" name="customer1" value="1"
                               class="custom-control-input">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description ml-0">&nbsp否</span>
@@ -340,11 +340,11 @@
                         </div>
                         <% } else if (details[i].type == 1) {%>
                         <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i></label>
-                        <div class="input-group" id="typeOfUser">
+                        <div class="input-group" id="<%= details[i].id %>">
                           <% var choice = strip(details[i].description) %>
                           <% for (var m = 0; m < choice.length; m++) { %>
                           <label class="display-inline-block custom-control custom-radio ml-1">
-                            <input type="radio" name="typeOfUserRadio" name="customer1" value="<%= m+1 %>"
+                            <input type="radio" name="<%= details[i].id %>" name="customer1" value="<%= m+1 %>"
                               class="custom-control-input">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description ml-0"><%= choice[m]%></span>
@@ -355,11 +355,11 @@
                         <!-- 多选 -->
                         <% } else if (details[i].type == 2) {%>
                         <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i><%= alert %></i> </label>
-                        <div class="input-group" id="typeOfUser">
+                        <div class="input-group" id="<%= details[i].id %>">
                           <% var choice = strip(details[i].description) %>
                           <% for (var m = 0; m < choice.length; m++) { %>
                           <label class="display-inline-block custom-control custom-checkbox ml-1">
-                            <input type="checkbox" name="typeOfUserRadio" name="customer1" value="<%= m+1 %>"
+                            <input type="checkbox" name="<%= details[i].id %>" name="customer1" value="<%= m+1 %>"
                               class="custom-control-input">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description ml-0"><%= choice[m]%></span>
@@ -416,11 +416,8 @@
 
           <div class="card-footer">
             <div class="form-actions center">
-              <button type="button" class="btn btn-warning mr-1" id="cancle">
-                <i class="icon-cross2"></i> 取消
-              </button>
-              <button type="button" class="btn btn-primary" id="submit">
-                <i class="icon-check2"></i> 提交
+              <button type="button" onclick="javascript:history.back(-1);" class="btn btn-primary float-xs-right" id="submit">
+                <i class="icon-check2">保存</i> 
               </button>
             </div>
           </div>
