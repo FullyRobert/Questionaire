@@ -45,7 +45,7 @@ exported.submit = async function (req, callback) {
     try {
 		let sqlinsert = "";
 		let param = [];
-		let id= req.session.questionaireid;
+		let id= req.query.id;
 		let data = req.body;
 		let keys = Object.keys(data);
 		let values = Object.values(data);

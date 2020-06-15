@@ -30,7 +30,6 @@ router.get("/index", function (req, res, next) {
 				if (parseInt(result[0][0].authority) == 1 && !req.session.token) {
 					login = 1;
 				}
-				req.session.questionaireid = result[0][0].id;
 				res.render("./questionaire", {
 					login: login,
 					questionaire: result[0],

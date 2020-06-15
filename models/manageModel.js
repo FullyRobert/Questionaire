@@ -106,7 +106,7 @@ exported.editquestionaire = async (req, res, callback) => {
 exported.newquestion = async function (req, callback) {
 	const conn = await pool.getConnection();
     try {
-		let id = req.session.questionaireid;
+		let id = req.query.questionaireid;
 		let title = req.body.title;
 		let type = req.body.questiontype;
 		let sqlinsert = "";
@@ -158,7 +158,7 @@ exported.delquestion = async(req, res, callback) => {
 exported.casquestion = async function (req, callback) {
 	const conn = await pool.getConnection();
     try {
-		let id = req.session.questionaireid;
+		let id = req.query.questionaireid;
 		let title = req.body.castitle;
 		let father_id = req.body.cascadeid;
 		let yesorno = req.body.cascadechoice; 

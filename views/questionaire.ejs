@@ -10,7 +10,7 @@
   <meta name="keywords"
     content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
   <meta name="author" content="PIXINVENT">
-  <title>问卷管理</title>
+  <title><%= questionaire[0].title %></title>
   <link rel="apple-touch-icon" sizes="60x60" href="../app-assets/images/ico/apple-icon-60.png">
   <link rel="apple-touch-icon" sizes="76x76" href="../app-assets/images/ico/apple-icon-76.png">
   <link rel="apple-touch-icon" sizes="120x120" href="../app-assets/images/ico/apple-icon-120.png">
@@ -279,11 +279,12 @@
   <!-- END PAGE LEVEL JS-->
 
   <!--   [注]：实际使用时要把这段js代码藏好！虽然我在后端进行了二次检测数据是否被篡改。 -->
-
   <script type="text/javascript">
+    var id = <%=questionaire[0].id %>
     $(document).ready(function () {
       $(".child").hide();
       $('#login').modal("show");
+      console.log(id);
     });
     $(".yes").click(function () {
       var id = $(this).attr("id").split("|");
@@ -302,10 +303,11 @@
     $("#submit").click(function () {
       var data = $('#form1').serialize();
       var id = $(this).attr("questionaire");
+      var url = "/questionaire/submit?id="+id;
       $.ajax({
         dataType: "JSON",
         data: $('#form1').serialize(),
-        url: "/questionaire/submit",
+        url: url,
         type: "POST",
         success: function (data) {
           if (data.status == 1) {

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" data-textdirection="ltr" class="loading">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="description"
+    content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+  <meta name="keywords"
+    content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
+  <meta name="author" content="PIXINVENT">
+  <title>问卷管理</title>
+  <link rel="apple-touch-icon" sizes="60x60" href="../app-assets/images/ico/apple-icon-60.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../app-assets/images/ico/apple-icon-76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../app-assets/images/ico/apple-icon-120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../app-assets/images/ico/apple-icon-152.png">
+  <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
+  <link rel="shortcut icon" type="image/png" href="../app-assets/images/ico/favicon-32.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <!-- BEGIN VENDOR CSS-->
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap.css">
+  <!-- font icons-->
+  <link rel="stylesheet" type="text/css" href="../app-assets/fonts/icomoon.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/fonts/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/pace.css">
+  <!-- END VENDOR CSS-->
+  <!-- BEGIN ROBUST CSS-->
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap-extended.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/app.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/colors.css">
+  <!-- END ROBUST CSS-->
+  <!-- BEGIN Page Level CSS-->
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
+  <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/documentation.css">
+  <!-- END Page Level CSS-->
+  <!-- BEGIN Custom CSS-->
+  <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
+  <!-- END Custom CSS-->
+  <style type="text/css">
+    .cursor {
+      cursor: pointer;
+    }
+  </style>>
+</head>
+
+
+<body data-open="click" data-menu="vertical-menu" data-col="2-columns"
+  class="vertical-layout vertical-menu 2-columns  fixed-navbar">
+  <!-- - var navbarCustom = "navbar-fixed-top navbar-semi-dark navbar-shadow"-->
+  <!-- navbar-fixed-top-->
+  <nav class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-semi-dark navbar-shadow">
+    <div class="navbar-wrapper">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav">
+          <li class="nav-item"><a href="/account/account" class="navbar-brand nav-link">调查问卷系统</a></li>
+          <li class="nav-item hidden-md-up float-xs-right"><a data-toggle="collapse" data-target="#navbar-mobile"
+              class="nav-link open-navbar-container"><i class="icon-ellipsis pe-2x fa-rotate-90"></i></a></li>
+        </ul>
+      </div>
+      <div class="navbar-container content">
+        <div id="navbar-mobile" class="collapse navbar-toggleable-sm">
+          <ul class="nav navbar-nav">
+            <li class="nav-item hidden-sm-down"><a class="nav-link nav-menu-main menu-toggle hidden-xs"><i
+                  class="icon-menu5"></i></a></li>
+          </ul>
+          <ul class="nav navbar-nav float-xs-right">
+            <li class="nav-item"><a id="login-btn" class="btn btn-success btn-doc-header"><i
+                  class="icon-bag3"></i>退出</a></li>
+            <li class="nav-item"><a href="/account/account" class="btn btn-success btn-doc-header"><i
+                  class="icon-bag3"></i>我的</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+  <!-- main menu-->
+  <div data-scroll-to-active="true" class="main-menu menu-fixed menu-dark menu-accordion menu-shadow">
+    <!-- main menu header-->
+    <!-- / main menu header-->
+    <!-- main menu content-->
+    <div class="main-menu-content menu-accordion">
+      <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+        <li class=" nav-item">
+          <a href="/account/account"><i class="icon-home3"></i><span data-i18n="" class="menu-title">我的账户</span></a>
+        </li>
+        <li class="nav-item"><a href="/manage/showlist"><i class="icon-android-menu"></i><span data-i18n=""
+            class="menu-title">问卷管理</span></a>
+        </li>
+        <li class="active"><a href="/statistics"><i class="icon-folder3"></i><span data-i18n=""
+              class="menu-title">数据统计</span></a>
+        </li>
+      </ul>
+    </div>
+    <!-- /main menu content-->
+    <!-- main menu footer-->
+    <!-- main menu footer-->
+  </div>
+  <!-- / main menu-->
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  <div class="app-content content container-fluid">
+    <div class="content-wrapper">
+      <div class="content-header row">
+        <div class="content-header-left col-md-10 col-xs-12 mb-1">
+        </div>
+      </div>
+      <div class="content-body">
+        <!-- Overview -->
+        <div class="col-xs-12 col-md-3 offset-md-1 offset-xs-0">
+          <div class="card">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="media">
+                            <div class="media-body text-xs-left">
+                                <h3 class="cyan">423</h3>
+                                <span>问题数量</span>
+                            </div>
+                            <div class="media-right media-middle">
+                                <i class="icon-ios-help-outline cyan font-large-2 float-xs-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4 offset-md-0 offset-xs-0">
+          <div class="card">
+              <div class="card-body">
+                    <div class="card-block">
+                        <div class="media">
+                            <div class="media-body text-xs-left">
+                                <h3 class="teal">156</h3>
+                                <span>有效问卷数</span>
+                            </div>
+                            <div class="media-right media-middle">
+                                <i class="icon-user1 teal font-large-2 float-xs-right"></i>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-3 offset-md-0 offset-xs-0">
+          <div class="card">
+                <div class="card-body">
+                    <div class="card-block">
+                        <div class="media">
+                            <div class="media-body text-xs-left">
+                                <h3 class="cyan">278</h3>
+                                <span>平均填写时间</span>
+                            </div>
+                            <div class="media-right media-middle">
+                                <i class="icon-pencil cyan font-large-2 float-xs-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-10 offset-md-1 offset-xs-0">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title" align="center"><%= title %></h4>
+              <br />
+              <h6 class="card-subtitle mb-1 text-muted"><em><%= description %></em></h6>
+              <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                  <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                  <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                  <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-body collapse in" aria-expanded="true">
+              <form class="form">
+                <div class="row">
+                  <div class="col-xs-10 col-md-10 offset-md-1 offset-xs-1">
+                    <div class="form-body">
+                        <!-- 根据后台数据显示不同类型的问题 -->                        
+                        <% for (var i = 0; i < details.length; i++) { %>
+                        <div class="card-block border-bottom-grey border-bottom-lighten-3">
+                        <div class="form-group" id = "group<%= i%>"  typ="<%= details[i].type%>" >
+                          <% if (details[i].ischild == 1) {%>
+                              <% for (var j = 0; j < i; j++) {%>
+                                <% if (details[i].parentid ==  details[j].id) {%>
+                                  <% var alert = "[本题为第" + (j+1) + "题的子问题]" %>
+                                <% } %>
+                              <% } %>
+                          <%} else if (details[i].ischild == 0) {%>
+                              <% var alert = "" %>
+                          <% } %>
+                          <% if (details[i].type == 0) {%>
+                          <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i
+                              class="text-danger"><%= alert %></i> </label>
+                          <div class="input-group" id="<%= details[i].id %>">
+                            <label class="display-inline-block custom-control custom-radio ml-1">
+                              <input type="radio" name="<%= details[i].id %>" name="customer1" value="0"
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0">&nbsp是</span>
+                            </label>
+                            <br />
+                            <label class="display-inline-block custom-control custom-radio ml-1">
+                              <input type="radio" name="<%= details[i].id %>" name="customer1" value="1"
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0">&nbsp否</span>
+                            </label>
+                            <br />
+                          </div>
+                          <% } else if (details[i].type == 1) {%>
+                          <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i
+                              class="text-danger"><%= alert %></i></label>
+                          <div class="input-group" id="<%= details[i].id %>">
+                            <% var choice = strip(details[i].description) %>
+                            <% for (var m = 0; m < choice.length; m++) { %>
+                            <label class="display-inline-block custom-control custom-radio ml-1">
+                              <input type="radio" name="<%= details[i].id %>" name="customer1" value="<%= m+1 %>"
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0"><%= choice[m]%></span>
+                            </label>
+                            <br />
+                            <% } %>
+                          </div>
+                          <!-- 多选 -->
+                          <% } else if (details[i].type == 2) {%>
+                          <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i
+                              class="text-danger"><%= alert %></i> </label>
+                          <div class="input-group" id="<%= details[i].id %>">
+                            <% var choice = strip(details[i].description) %>
+                            <% for (var m = 0; m < choice.length; m++) { %>
+                            <label class="display-inline-block custom-control custom-checkbox ml-1">
+                              <input type="checkbox" name="<%= details[i].id %>" name="customer1" value="<%= m+1 %>"
+                                class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description ml-0"><%= choice[m]%></span>
+                            </label>
+                            <br />
+                            <% } %>
+                          </div>
+                          <!-- 单行文本 -->
+                          <% } else if (details[i].type == 3) {%>
+                          <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i
+                              class="text-danger"><%= alert %></i> </label>
+                          <input type="text" id="question<%= i+1 %>" class="form-control" placeholder="请输入"
+                            name="<%= i+1 %>">
+                          <!-- 多行文本 -->
+                          <% } else if (details[i].type == 4){ %>
+                          <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i
+                              class="text-danger"><%= alert %></i> </label>
+                          <br />
+                          <textarea rows="5" type="text" id="question<%= i+1 %>" class="form-control" placeholder="请输入"
+                            name="<%= i+1 %>"></textarea>
+                          <!-- 数字 -->
+                          <% } else if (details[i].type == 5){ %>
+                          <label for="eventInput1"><%= i+1 %>. <%= details[i].title %> &nbsp <i
+                              class="text-danger"><%= alert %></i></label>
+                          <input type="number" id="question<%= i+1 %>" class="form-control" placeholder="请输入"
+                            name="<%= i+1 %>">
+                          <!-- 小数 -->
+                          <% } else if (details[i].type == 6){ %>
+                          <label for="eventInput1"><%= i+1 %>. <%= details[i].title %> &nbsp <i
+                              class="text-danger"><%= alert %></i></label>
+                          <input type="number" step="<%= details[i].description %>" id="question<%= i+1 %>"
+                            class="form-control" placeholder="请输入" name="<%= i+1 %>">
+                          <!-- 评分 -->
+                          <% } else if (details[i].type == 7){ %>
+                          <label for="eventInput1"><%= i+1 %>. <%= details[i].title %> &nbsp <i
+                              class="text-danger"><%= alert %></i></label>
+                          <table class="table table-hover" width="90%" cellspacing="0" cellpadding="2">
+                            <tbody>
+                              <% for (var j = 1; j <= trans(details[i].description); j++) { %>
+                              <th><%= j %></th>
+                              <% } %>
+                              <tr>
+                                <% for (var k = 1; k <= trans(details[i].description); k++) { %>
+                                <td><input type="radio" value="<%= j %>" name="R<%= j %>"></td>
+                                <% } %>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <% } %>
+                        </div>
+                        <% if (details[i].type == 0 || details[i].type ==1 || details[i].type ==2 || details[i].type==7){ %>
+                        <div id="simple-pie-chart<%= i %>" class="height-200"></div>
+                        <% } else if (details[i].type ==3 || details[i].type ==4){%>
+                        <table class="table table-hover table-striped">
+                          <tbody>
+                            <th>用户名</th>
+                            <th>填写内容</th>
+                            <tr>
+                              <td><%= details[i].title %></td>
+                              <td><%= details[i].title %></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <% } else if (details[i].type ==5 || details[i].type ==6){%>
+                        <table class="table table-hover table-striped">
+                          <tbody>
+                            <th>总和</th>
+                            <th>平均数</th>
+                            <th>中位数</th>
+                            <th>极差</th>
+                            <th>标准差</th>
+                            <tr>
+                              <td><%= details[i].title %></td>
+                              <td><%= details[i].title %></td>
+                              <td><%= details[i].title %></td>
+                              <td><%= details[i].title %></td>
+                              <td><%= details[i].title %></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <% } %>
+                        </div>
+                        <% } %>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+
+            <div class="card-footer">
+              <div class="form-actions center">
+                <button type="button" onclick="javascript:history.back(-1);" class="btn btn-primary float-xs-right"
+                  id="submit">
+                  <i class="icon-check2">返回</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEGIN VENDOR JS-->
+  <script src="../app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
+  <script src="../app-assets/vendors/js/ui/tether.min.js" type="text/javascript"></script>
+  <script src="../app-assets/js/core/libraries/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../app-assets/vendors/js/ui/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+  <script src="../app-assets/vendors/js/ui/unison.min.js" type="text/javascript"></script>
+  <script src="../app-assets/vendors/js/ui/blockUI.min.js" type="text/javascript"></script>
+  <script src="../app-assets/vendors/js/ui/jquery.matchHeight-min.js" type="text/javascript"></script>
+  <script src="../app-assets/vendors/js/ui/screenfull.min.js" type="text/javascript"></script>
+  <script src="../app-assets/vendors/js/extensions/pace.min.js" type="text/javascript"></script>
+  <!-- BEGIN VENDOR JS-->
+  <!-- BEGIN PAGE VENDOR JS-->
+  <script src="../../app-assets/vendors/js/charts/flot/jquery.flot.min.js" type="text/javascript"></script>
+  <script src="../../app-assets/vendors/js/charts/flot/jquery.flot.pie.js" type="text/javascript"></script>
+  <script src="../../app-assets/vendors/js/charts/flot/jquery.flot.resize.js" type="text/javascript"></script>
+  <!-- END PAGE VENDOR JS-->
+  <!-- BEGIN ROBUST JS-->
+  <script src="../app-assets/js/core/app-menu.js" type="text/javascript"></script>
+  <script src="../app-assets/js/core/app.js" type="text/javascript"></script>
+  <!-- END ROBUST JS-->
+  <!-- BEGIN PAGE LEVEL JS-->
+  <script src="../app-assets/js/scripts/documentation.js" type="text/javascript"></script>
+  <script src="../app-assets/vendors/js/ui/affix.js" type="text/javascript"></script>
+  <!-- END PAGE LEVEL JS-->
+
+  <!--   [注]：实际使用时要把这段js代码藏好！虽然我在后端进行了二次检测数据是否被篡改。 -->
+
+  <script type="text/javascript">
+    var length = <%= details.length%>;
+    $(document).ready(function () {
+    });
+    $(window).on("load", function () {
+
+      var options = {
+        series: {
+          pie: {
+            show: true
+          }
+        },
+        colors: ['#99B898', '#FECEA8', '#FF847C', '#E84A5F', '#2A363B', '#6C5B7B']
+      };
+
+      var data = [
+        { label: "Series1", data: 50 },
+        { label: "Series2", data: 70 },
+        { label: "Series3", data: 60 },
+        { label: "Series4", data: 90 },
+        { label: "Series5", data: 80 },
+        { label: "Series6", data: 110 }
+      ];
+      
+      for (let i=0 ;i<length;i++)
+      {
+        let str = "#group"+i;
+        if ($(str).attr("typ")=="0" ||$(str).attr("typ")=="1" ||$(str).attr("typ")=="2" ||$(str).attr("typ")=="7")
+        {
+          let dd="#simple-pie-chart"+i;
+          $.plot(dd, data, options);
+        }
+      }
+      
+    });
+    $("#login-btn").click(function () {
+      if (sessionStorage.getItem('loggedIn'))
+        $.post("/account/exit", function (data) {
+          if (data.status == 1) {
+            alert("登出成功");
+            sessionStorage.clear();
+            window.location.href = "/account/login";
+          }
+          if (data.status == 0) alert("登出失败");
+        });
+      else
+        window.location.href = "/account/login";
+    });
+  </script>
+
+
+</body>
+
+</html>
