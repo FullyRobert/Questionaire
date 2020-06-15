@@ -82,4 +82,18 @@ exported.submit = async function (req, callback) {
     }
 },
 
+//检查登录
+exported.check_login = async function (req, callback) {
+    try {
+		const conn = await pool.getConnection();
+      	let sql = "select * from user where username = ? and password = ?";
+		let param = [req.body.username, req.body.password];
+		let ret = await conn.query(sql, param);
+		callback(undefined, ret[0]);
+		conn.release();
+    } catch (err) {
+		callback(err, undefined);
+    }
+},
+
 module.exports = exported;
