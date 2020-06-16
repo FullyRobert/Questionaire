@@ -23,7 +23,6 @@ router.get('/showlist', (req, res) => {
 			} else {
 				req.session.details = result;
 				res.render('./manage/showlist', {
-					username: req.session.token.username,
 					details: result,
 					length: result.length == null ? 0 : result.length,
 					selector: (req.query.selector >= 0 && req.query.selector <= 2) ? req.query.selector : 3

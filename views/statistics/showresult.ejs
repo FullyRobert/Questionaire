@@ -10,7 +10,7 @@
   <meta name="keywords"
     content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
   <meta name="author" content="PIXINVENT">
-  <title>问卷管理</title>
+  <title>数据统计</title>
   <link rel="apple-touch-icon" sizes="60x60" href="../app-assets/images/ico/apple-icon-60.png">
   <link rel="apple-touch-icon" sizes="76x76" href="../app-assets/images/ico/apple-icon-76.png">
   <link rel="apple-touch-icon" sizes="120x120" href="../app-assets/images/ico/apple-icon-120.png">
@@ -43,6 +43,12 @@
   <style type="text/css">
     .cursor {
       cursor: pointer;
+    }
+    th {
+      text-align: center; 
+    }
+    td {
+      text-align: center; 
     }
   </style>>
 </head>
@@ -119,7 +125,7 @@
                     <div class="card-block">
                         <div class="media">
                             <div class="media-body text-xs-left">
-                                <h3 class="cyan">423</h3>
+                                <h3 class="cyan"><%= details.length %></h3>
                                 <span>问题数量</span>
                             </div>
                             <div class="media-right media-middle">
@@ -136,7 +142,7 @@
                     <div class="card-block">
                         <div class="media">
                             <div class="media-body text-xs-left">
-                                <h3 class="teal">156</h3>
+                                <h3 class="teal"><%= length %></h3>
                                 <span>有效问卷数</span>
                             </div>
                             <div class="media-right media-middle">
@@ -153,7 +159,7 @@
                     <div class="card-block">
                         <div class="media">
                             <div class="media-body text-xs-left">
-                                <h3 class="cyan">278</h3>
+                                <h3 class="cyan">37秒</h3>
                                 <span>平均填写时间</span>
                             </div>
                             <div class="media-right media-middle">
@@ -167,9 +173,8 @@
         <div class="col-xs-12 col-md-10 offset-md-1 offset-xs-0">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title" align="center"><%= title %></h4>
+              <h4 class="card-title" align="center"><i><%= title %></i>&nbsp数据统计结果</h4>
               <br />
-              <h6 class="card-subtitle mb-1 text-muted"><em><%= description %></em></h6>
               <div class="heading-elements">
                 <ul class="list-inline mb-0">
                   <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
@@ -181,12 +186,12 @@
             <div class="card-body collapse in" aria-expanded="true">
               <form class="form">
                 <div class="row">
-                  <div class="col-xs-10 col-md-10 offset-md-1 offset-xs-1">
+                  <div class="col-xs-12 col-md-10 offset-md-1 offset-xs-0">
                     <div class="form-body">
                         <!-- 根据后台数据显示不同类型的问题 -->                        
                         <% for (var i = 0; i < details.length; i++) { %>
                         <div class="card-block border-bottom-grey border-bottom-lighten-3">
-                        <div class="form-group" id = "group<%= i%>"  typ="<%= details[i].type%>" >
+                        <div class="form-group" id = "group<%= i%>" qid="<%= details[i].id%>" typ="<%= details[i].type%>" >
                           <% if (details[i].ischild == 1) {%>
                               <% for (var j = 0; j < i; j++) {%>
                                 <% if (details[i].parentid ==  details[j].id) {%>
@@ -289,6 +294,7 @@
                           </table>
                           <% } %>
                         </div>
+                        <h6>统计结果：</h6>
                         <% if (details[i].type == 0 || details[i].type ==1 || details[i].type ==2 || details[i].type==7){ %>
                         <div id="simple-pie-chart<%= i %>" class="height-200"></div>
                         <% } else if (details[i].type ==3 || details[i].type ==4){%>
@@ -296,10 +302,12 @@
                           <tbody>
                             <th>用户名</th>
                             <th>填写内容</th>
+                            <% for (var n = 0; n < datas[i].length; n++) { %>
                             <tr>
-                              <td><%= details[i].title %></td>
-                              <td><%= details[i].title %></td>
+                              <td><%= datas[i][n][0] %></td>
+                              <td><%= datas[i][n][1] %></td>
                             </tr>
+                            <% } %>
                           </tbody>
                         </table>
                         <% } else if (details[i].type ==5 || details[i].type ==6){%>
@@ -308,14 +316,10 @@
                             <th>总和</th>
                             <th>平均数</th>
                             <th>中位数</th>
-                            <th>极差</th>
-                            <th>标准差</th>
                             <tr>
-                              <td><%= details[i].title %></td>
-                              <td><%= details[i].title %></td>
-                              <td><%= details[i].title %></td>
-                              <td><%= details[i].title %></td>
-                              <td><%= details[i].title %></td>
+                              <td><%= datas[i][0] %></td>
+                              <td><%= datas[i][1] %></td>
+                              <td><%= datas[i][2] %></td>
                             </tr>
                           </tbody>
                         </table>
@@ -379,28 +383,28 @@
       var options = {
         series: {
           pie: {
-            show: true
+            show: true,
+            label: {
+              show: true
+            }
           }
         },
-        colors: ['#99B898', '#FECEA8', '#FF847C', '#E84A5F', '#2A363B', '#6C5B7B']
+        colors: ['#99B898', '#FECEA8', '#FF847C', '#E84A5F', '#2A363B', '#6C5B7B'],
       };
 
-      var data = [
-        { label: "Series1", data: 50 },
-        { label: "Series2", data: 70 },
-        { label: "Series3", data: 60 },
-        { label: "Series4", data: 90 },
-        { label: "Series5", data: 80 },
-        { label: "Series6", data: 110 }
-      ];
-      
+
       for (let i=0 ;i<length;i++)
       {
         let str = "#group"+i;
-        if ($(str).attr("typ")=="0" ||$(str).attr("typ")=="1" ||$(str).attr("typ")=="2" ||$(str).attr("typ")=="7")
+        let type = $(str).attr("typ"); 
+        if (type =="0" || type=="1" || type=="2" || type=="7")
         {
-          let dd="#simple-pie-chart"+i;
-          $.plot(dd, data, options);
+          let qid = $(str).attr("qid");
+          let url = "/statistics/getpiedata?qid=" + qid + "&type=" + type; 
+          $.get(url, function (data) {
+            let chartname="#simple-pie-chart"+i;
+            $.plot(chartname, data, options);
+          });
         }
       }
       

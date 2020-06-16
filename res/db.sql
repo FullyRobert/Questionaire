@@ -143,10 +143,35 @@ CREATE TABLE `data_record` (
   `user_id` int(11) NOT NULL,
   `username` varchar(11) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '用户名',
   `questionaire_id` int(11) NOT NULL,
-  `begin_time` datetime,
   `end_time` datetime,
   `ip` varchar(64) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `questionaire_id` (`questionaire_id`),
   CONSTRAINT `record_ibfk_1` FOREIGN KEY (`questionaire_id`) REFERENCES `questionaire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of question
+-- ----------------------------
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,21,1,1);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,22,1,123);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,23,1,"赵威凯");
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,24,1,"很好啊");
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,25,1,6);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,26,1,3.5);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,27,1,5);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,28,1,1);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,29,1,"如何开发网站");
+
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,21,2,2);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,22,2,123);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,23,2,"孙福林");
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,24,2,"我觉得不错");
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,25,2,9);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,26,2,2.5);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,27,2,3);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,28,2,0);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,30,2,"课程太难了");
+
+insert into data_record (user_id,username,questionaire_id,end_time) values(1,3170105163,3,'2020-06-15 13:00:00');
+insert into data_record (user_id,username,questionaire_id,end_time) values(2,"满满",3,'2020-06-15 13:20:00');
