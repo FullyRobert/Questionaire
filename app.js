@@ -9,6 +9,8 @@ let encrypt = require('./models/encrypt.js');
 let accountRouter = require('./routes/account'); //账户管理路由
 let manageRouter = require('./routes/manage'); //问卷管理路由
 let questionaireRouter = require('./routes/questionaire'); //问卷填写路由
+let statisticsRouter = require('./routes/statistics'); //数据统计路由
+
 let app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +31,7 @@ app.use('/', accountRouter); //空路由默认转移到账户管理路由上
 app.use('/account', accountRouter);   //账户管理路由
 app.use('/manage', manageRouter);
 app.use('/questionaire',questionaireRouter);
+app.use('/statistics',statisticsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

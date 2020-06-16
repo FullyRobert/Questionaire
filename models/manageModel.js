@@ -210,8 +210,9 @@ exported.public = async(req, res, callback) => {
 	const conn = await pool.getConnection();
 	try {
 		let id = req.session.details[req.body.pos].id;
+		let time=systime.format(new Date(), 'YYYY-MM-DD HH:mm:ss');
 		let url = "http://localhost:3030/questionaire/index?id="+id;
-		await conn.query("UPDATE questionaire SET status = 1, url = ? where id = ?", [url,id]);
+		await conn.query("UPDATE questionaire SET status = 1, begin_time = ?,url = ? where id = ?", [time,url,id]);
 		callback(undefined, "public_ok");
 	} catch (err) {
 		console.log(err);

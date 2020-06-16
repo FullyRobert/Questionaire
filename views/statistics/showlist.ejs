@@ -7,7 +7,7 @@
   <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
   <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
   <meta name="author" content="PIXINVENT">
-  <title>问卷管理</title>
+  <title>数据统计</title>
   <link rel="apple-touch-icon" sizes="60x60" href="../app-assets/images/ico/apple-icon-60.png">
   <link rel="apple-touch-icon" sizes="76x76" href="../app-assets/images/ico/apple-icon-76.png">
   <link rel="apple-touch-icon" sizes="120x120" href="../app-assets/images/ico/apple-icon-120.png">
@@ -83,10 +83,11 @@
         <li class=" nav-item">
           <a href="/account/account"><i class="icon-home3"></i><span data-i18n="" class="menu-title">我的账户</span></a>
         </li>
-        <li class="active"><a href=""><i class="icon-folder3"></i><span data-i18n="" class="menu-title">问卷管理</span></a>
+        <li class="nav-item"><a href="/manage/showlist"><i class="icon-android-menu"></i><span data-i18n=""
+            class="menu-title">问卷管理</span></a>
         </li>
-
-        <li class="nav-item"><a href="/statistics/index"><i class="icon-android-menu"></i><span data-i18n="" class="menu-title">数据统计</span></a>
+        <li class="active"><a href="/statistics/index"><i class="icon-folder3"></i><span data-i18n=""
+              class="menu-title">数据统计</span></a>
         </li>
       </ul>
     </div>
@@ -99,71 +100,7 @@
   <div class="app-content content container-fluid">
     <div class="content-wrapper">
       <div class="content-header row">
-        <div class="content-header-left col-md-10 col-xs-12 mb-1">
-          <button class="btn btn-success btn-md" data-toggle="modal" data-target="#newquestionaire">创建新问卷</button>
-          <!-- 模态框（Modal） 新建问卷用-->
-          <div class="modal fade" id="newquestionaire" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">创建新问卷</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-body">
-                      <div class="form-group">
-                        <label for="eventInput1">问卷名称</label>
-                        <input type="text" id="title" class="form-control" placeholder="问卷名称" name="title">
-                      </div>
-
-                      <div class="form-group">
-                        <label for="eventInput2">问卷说明</label>
-                        <input type="text" id="description" class="form-control" placeholder="问卷描述" name="description">
-                      </div>
-
-                      <div class="form-group">
-                        <label for="eventInput5">请选择问卷截止日期</label>
-                        <input type="date" id="enddate" class="form-control" name="contact" placeholder="enddate">
-                      </div>  
-  
-                      <div class="form-group">
-                        <label for="eventInput2">请选择发布类型</label>
-                        <select id="publictype" class="combobox form-control selectpicker" name="publictype">
-                          <option></option>
-                          <option value="1" selected>仅注册用户可填写</option>
-                          <option value="2" >无需注册，填写一定次数</option>
-                          <option value="3">无需注册，每天可填写一定次数</option>
-                        </select>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="eventInput3">可填写次数</label>
-                        <input type="number" id="maxnum" class="form-control" placeholder="可填写次数" name="maxnum">
-                      </div>
-                    </div>
-                  </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                      <button type="button" class="btn btn-info" id ="createsubmit">提交更改</button>
-                  </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-          </div>
-          <ul class="nav nav-tabs nav-left" style="height: 50px;">
-            <li class="nav-item">
-              <a class="text-success nav-link" id="baseVerticalLeft-tab6" href="/manage/showlist?selector=3">所有问卷</a>
-            </li>
-            <li class="nav-item hidden-xs">
-              <a class="text-success nav-link" id="baseVerticalLeft-tab0" href="/manage/showlist?selector=0">未发布</a>
-            </li>
-            <li class="nav-item">
-              <a class="text-success nav-link" id="baseVerticalLeft-tab1" href="/manage/showlist?selector=1">已发布</a>
-            </li>
-            <li class="nav-item">
-              <a class="text-success nav-link" id="baseVerticalLeft-tab2" href="/manage/showlist?selector=2">已结束</a>
-            </li>
-          </ul>
-          
+        <div class="content-header-left col-md-10 col-xs-12 mb-1">        
         </div>
         <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-2 col-xs-12">
           <div class="breadcrumb-wrapper col-xs-12">
@@ -194,19 +131,6 @@
               <br/>
                 <h6 class="card-subtitle mb-1 text-muted"><em><%= details[i].description %></em></h6>
               <div class="heading-elements">
-                <ul class="list-inline mb-0">
-                  <% if (details[i].status == 0) {%>
-                    <li>未发布 &nbsp &nbsp &nbsp</li>
-                  <% } else if (details[i].status == 1) { %>
-                    <li>已发布 &nbsp &nbsp &nbsp</li>
-                  <% } else if (details[i].status == 2) { %>
-                    <li>已结束&nbsp &nbsp &nbsp</li>
-                  <% } %>
-                  <form action="/manage/delete" method="post" style="float: right;">
-                    <span class="tag tag-pill tag-danger cursor delete">删除问卷</span>
-                    <input type="hidden" name="pos" value="<%= i %>" />
-                  </form>
-                </ul>
               </div>
             </div>
             <div class="card-body collapse in" aria-expanded="true">
@@ -217,32 +141,17 @@
                       <th>问卷名称</th>
                       <th>当前状态</th>
                       <th class="hidden-xs">最大填写次数</th>
+                      <th>开始时间</th>
                       <th>结束时间</th>
-                      
-                      <% if (details[i].status != 0) { %>
-                        <th>填写链接</th>
-                        <th>当前填写次数</th>
-                      <% } %>
+                      <th>填写次数</th>
 
                       <tr>
                         <td><%= details[i].title %></td>
-
-                        <% if (details[i].status == 0) { %>
-                          <td>待发布</td>
-                        <% } %>
-                        <% if (details[i].status == 1) { %>
-                          <td>已发布</td>
-                        <% } %>
-                        <% if (details[i].status == 2) { %>
-                          <td>已结束</td>
-                        <% } %>
-
+                        <td class="text-danger">已结束</td>
                         <td class="hidden-xs"><%= details[i].maxnum %></td>
+                        <td><%= dateFormat(details[i].begin_time) %></td>
                         <td><%= dateFormat(details[i].end_time) %></td>
-                        <% if (details[i].status != 0) { %>
-                          <td><a href="<%= details[i].url %>"><%= details[i].url %></a></td>
-                          <td><%= details[i].cur_num %></td>                         
-                        <% } %>
+                        <td><%= details[i].cur_num %></td>                         
                       </tr>
                     </tbody>
                   </table>
@@ -251,26 +160,9 @@
             </div>
             <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
               <span class="tags float-xs-right">
-                <% if (details[i].status == 0) { %>
-                  <a href="/manage/editquestionaire?questionaireid=<%=details[i].id %>&pos=<%= i %>">
-                    <span class="tag tag-pill tag-info">编辑问卷</span>
-                  </a>
-                  <form action="/manage/public" method="post">
-                    <span class="tag tag-pill tag-success cursor public">发布问卷</span>
-                    <input type="hidden" name="pos" value="<%= i %>" />
-                  </form>
 
-                <% } %>
-                <% if (details[i].status == 1) { %>
-                  <form action="/manage/stoppublic" method="post">
-                    <span class="tag tag-pill tag-warning cursor stop">终止发布</span>
-                    <input type="hidden" name="pos" value="<%= i %>" />
-                  </form>
-                <% } %>
-                <% if (details[i].status == 2) { %>
                   <a href="/payment/orderinfo?oid=<%= compileStr('YCJ20190608' + details[i].order_id) %>&session=<%= compileStr('YCJ20190608' + i) %>">
                   <span class="tag tag-pill tag-success">查看统计结果</span></a>
-                <% } %>
               </span>
             </div>
           </div>
@@ -304,50 +196,8 @@
     <!--   [注]：实际使用时要把这段js代码藏好！虽然我在后端进行了二次检测数据是否被篡改。 -->
 
     <script type="text/javascript">
-      $(document).ready(function () {
+    $(document).ready(function () {
       });
-      $("#createsubmit").click(function () {
-        let title = $("#title").val();
-        let maxnum = $("#maxnum").val();
-        let description = $("#description").val();
-        let publictype = $("#publictype").val();
-        let enddate = $("#enddate").val();
-        if (title.length > 32) {
-          alert("问卷名过长");
-          return;
-        }
-  
-        if (title == null) {
-          alert("问卷名不能为空！");
-          return;
-        }
-  
-        $.ajax({
-          dataType: "JSON",
-          data: {
-            title: title,
-            maxnum: maxnum,
-            description: description,
-            publictype:publictype,
-            enddate:enddate,
-          },
-          url: "/manage/create",
-          type: "POST",
-          success: function (data) {
-            if (data.status == 1) {
-              alert("创建成功");
-              window.location.href = "/manage/showlist"
-            }
-            else if (data.status == 0) {
-              alert("您输入的信息不完整");
-            }
-            else if (data.status == -1) {
-              alert("未知错误");
-            }
-          }
-        });
-      });
-    
     $("#login-btn").click(function () {
     if (sessionStorage.getItem('loggedIn'))
       $.post("/account/exit", function (data) {
@@ -362,27 +212,5 @@
       window.location.href = "/account/login";
   });
     </script>
-
-    <script type="text/javascript">
-      $(function(){
-        $("#baseVerticalLeft-tab<%= selector %>").addClass("active");
-      });
-      $(".delete").click(function(){
-        if (confirm("确认删除问卷吗，一旦删除将不可恢复！")) {
-          $(this).parents("form").submit();
-        }
-      });
-      $(".public").click(function(){
-        if (confirm("确认发布问卷吗？")) {
-          $(this).parents("form").submit();
-        }
-      });
-      $(".stop").click(function(){
-        if (confirm("确认终止发布问卷吗？")) {
-          $(this).parents("form").submit();
-        }
-      });
-    </script>
-
   </body>
   </html>

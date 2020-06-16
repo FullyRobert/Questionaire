@@ -12,6 +12,7 @@ File Encoding         : 65001
 
 Date: 2020-06-06 10:36:01
 */
+DROP Database questionaire;
 create Database questionaire;
 USE questionaire;
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,7 +34,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-
+insert into user (username, password, dateOfBirth,phoneNumber, emailAddr) values('3170105163','123456','1998-12-16','18888926486','3170105163@zju.edu.cn');
+insert into user (username, password, dateOfBirth,phoneNumber, emailAddr) values('满满','1234','1998-12-16','18888926486','3170105163@zju.edu.cn');
 -- ----------------------------
 -- Table structure for `questionaire`
 -- ----------------------------
@@ -46,6 +48,7 @@ CREATE TABLE `questionaire` (
   `status` int(1) NOT NULL DEFAULT '0',
   `maxnum` int(11) NOT NULL DEFAULT '100',
   `cur_num` int(11) NOT NULL DEFAULT '0',
+  `begin_time` datetime,
   `end_time` datetime,
   `authority` int(1) NOT NULL DEFAULT '0',
   `url` varchar(255),
@@ -58,9 +61,9 @@ CREATE TABLE `questionaire` (
 -- Records of questionaire
 -- ----------------------------
 
-insert into questionaire (user_id, title, description, status) values(1,'test','这是一个测试问卷',0);
-insert into questionaire (user_id, title, description, status) values(1,'test2','这是一个测试问卷',1);
-insert into questionaire (user_id, title, description, status) values(1,'test3','这是一个测试问卷',2);
+insert into questionaire (user_id, title, description, status,end_time,authority) values(1,'B/S体系软件设计','这是一个未发布的测试问卷,题目已经拟好',0,'2020-06-30 00:00:00',1);
+insert into questionaire (user_id, title, description, status,begin_time,end_time,authority,url) values(1,'B/S体系软件设计测试问卷2','这是一个正在发布的测试问卷,题目已经拟好',1,'2020-06-08 00:00:00','2020-06-30 00:00:00',1,"http://localhost:3030/questionaire/index?id=2");
+insert into questionaire (user_id, title, description, status, cur_num,begin_time,end_time,authority,url) values(1,'B/S体系软件设计测试问卷3','这是一个已结束的测试问卷,题目已经拟好',2,20,'2020-06-08 00:00:00','2020-06-15 00:00:00',1,"http://localhost:3030/questionaire/index?id=3");
 
 -- ----------------------------
 -- Table structure for `question`
@@ -87,14 +90,38 @@ CREATE TABLE `question` (
 -- Records of question
 -- ----------------------------
 
-insert into question (questionaire_id, title, description, type) values(12,'下列课程哪一门是本学期的必修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',1);
-insert into question (questionaire_id, title, description, type) values(12,'下列课程哪一门是本学期的选修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',2);
-insert into question (questionaire_id, title, description, type) values(12,'请输入您的姓名','',3);
-insert into question (questionaire_id, title, description, type) values(12,'请输入您对本课程的评价','',4);
-insert into question (questionaire_id, title, description, type) values(12,'B/S软件体系的课程学时是？','',5);
-insert into question (questionaire_id, title, description, type) values(12,'B/S软件体系的课程学分是？','0.1',6);
-insert into question (questionaire_id, title, description, type) values(12,'请对本课程进行评分','5',7);
+insert into question (questionaire_id, title, description, type) values(1,'下列课程哪一门是本学期的必修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',1);
+insert into question (questionaire_id, title, description, type) values(1,'下列课程哪一门是本学期的选修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',2);
+insert into question (questionaire_id, title, description, type) values(1,'请输入您的姓名','',3);
+insert into question (questionaire_id, title, description, type) values(1,'请输入您对本课程的评价','',4);
+insert into question (questionaire_id, title, description, type) values(1,'B/S软件体系的课程学时是？','',5);
+insert into question (questionaire_id, title, description, type) values(1,'B/S软件体系的课程学分是？','0.1',6);
+insert into question (questionaire_id, title, description, type) values(1,'请对本课程进行评分','5',7);
+insert into question (questionaire_id, title, description, type ,isparent,childyes,childno) values(1,'您认为本课程是否对您有帮助','',0,1,9,10);
+insert into question (questionaire_id, title, description, type ,ischild,parentid) values(1,'请简述你在课程中学到了什么','',4,1,8);
+insert into question (questionaire_id, title, description, type ,ischild,parentid) values(1,'请给出意见','',4,1,8);
 
+insert into question (questionaire_id, title, description, type) values(2,'下列课程哪一门是本学期的必修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',1);
+insert into question (questionaire_id, title, description, type) values(2,'下列课程哪一门是本学期的选修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',2);
+insert into question (questionaire_id, title, description, type) values(2,'请输入您的姓名','',3);
+insert into question (questionaire_id, title, description, type) values(2,'请输入您对本课程的评价','',4);
+insert into question (questionaire_id, title, description, type) values(2,'B/S软件体系的课程学时是？','',5);
+insert into question (questionaire_id, title, description, type) values(2,'B/S软件体系的课程学分是？','0.1',6);
+insert into question (questionaire_id, title, description, type) values(2,'请对本课程进行评分','5',7);
+insert into question (questionaire_id, title, description, type ,isparent,childyes,childno) values(2,'您认为本课程是否对您有帮助','',0,1,19,20);
+insert into question (questionaire_id, title, description, type ,ischild,parentid) values(2,'请简述你在课程中学到了什么','',4,1,18);
+insert into question (questionaire_id, title, description, type ,ischild,parentid) values(2,'请给出意见','',4,1,18);
+
+insert into question (questionaire_id, title, description, type) values(3,'下列课程哪一门是本学期的必修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',1);
+insert into question (questionaire_id, title, description, type) values(3,'下列课程哪一门是本学期的选修课程？','债券系统|外汇系统|软件工程|B/S软件体系设计',2);
+insert into question (questionaire_id, title, description, type) values(3,'请输入您的姓名','',3);
+insert into question (questionaire_id, title, description, type) values(3,'请输入您对本课程的评价','',4);
+insert into question (questionaire_id, title, description, type) values(3,'B/S软件体系的课程学时是？','',5);
+insert into question (questionaire_id, title, description, type) values(3,'B/S软件体系的课程学分是？','0.1',6);
+insert into question (questionaire_id, title, description, type) values(3,'请对本课程进行评分','5',7);
+insert into question (questionaire_id, title, description, type ,isparent,childyes,childno) values(3,'您认为本课程是否对您有帮助','',0,1,29,30);
+insert into question (questionaire_id, title, description, type ,ischild,parentid) values(3,'请简述你在课程中学到了什么','',4,1,28);
+insert into question (questionaire_id, title, description, type ,ischild,parentid) values(3,'请给出意见','',4,1,28);
 -- ----------------------------
 -- Table structure for `data`
 -- ----------------------------
@@ -116,6 +143,7 @@ CREATE TABLE `data_record` (
   `user_id` int(11) NOT NULL,
   `username` varchar(11) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '用户名',
   `questionaire_id` int(11) NOT NULL,
+  `begin_time` datetime,
   `end_time` datetime,
   `ip` varchar(64) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
