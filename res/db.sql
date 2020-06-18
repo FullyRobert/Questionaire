@@ -1,17 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost_3306
-Source Server Version : 50505
-Source Host           : localhost:3306
-Source Database       : questionaire
-
-Target Server Type    : MYSQL
-Target Server Version : 50505
-File Encoding         : 65001
-
-Date: 2020-06-06 10:36:01
-*/
 DROP Database questionaire;
 create Database questionaire;
 USE questionaire;
@@ -175,3 +161,15 @@ insert into data_question (questionaire_id,question_id,record_id,answer) values(
 
 insert into data_record (user_id,username,questionaire_id,end_time) values(1,3170105163,3,'2020-06-15 13:00:00');
 insert into data_record (user_id,username,questionaire_id,end_time) values(2,"满满",3,'2020-06-15 13:20:00');
+
+
+insert into question (questionaire_id, title, description, type) values(1,'请点击按钮以获取您的地理位置','',8);
+insert into question (questionaire_id, title, description, type) values(1,'请选择本学期开学时间','',9);
+insert into question (questionaire_id, title, description, type) values(2,'请点击按钮以获取您的地理位置','',8);
+insert into question (questionaire_id, title, description, type) values(2,'请选择本学期开学时间','',9);
+insert into question (questionaire_id, title, description, type) values(3,'请点击按钮以获取您的地理位置','',8);
+insert into question (questionaire_id, title, description, type) values(3,'请选择本学期开学时间','',9);
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,35,2,"浙江省 杭州市 西湖区");
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,36,2,"2020-06-01");
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,35,1,"福建省 漳州市 芗城区");
+insert into data_question (questionaire_id,question_id,record_id,answer) values(3,36,1,"2020-06-03");

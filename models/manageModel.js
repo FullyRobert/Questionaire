@@ -117,10 +117,6 @@ exported.newquestion = async function (req, callback) {
 			let description = req.body.a + "|" + req.body.b +  "|" + req.body.c + "|" + req.body.d;
 			param = [id,title,description,type];
 		}
-		else if (type == "0" || type == "3" || type == "4" || type == "5"){
-			sqlinsert = "insert into question (questionaire_id, title, type) values(?,?,?)";
-			param = [id,title,type];
-		}
 		else if (type == "6"){
 			sqlinsert = "insert into question (questionaire_id, title, description, type) values(?,?,?,?)";
 			param = [id,title,req.body.accuracy,type];
@@ -128,6 +124,10 @@ exported.newquestion = async function (req, callback) {
 		else if (type == "7"){
 			sqlinsert = "insert into question (questionaire_id, title, description, type) values(?,?,?,?)";
 			param = [id,title,req.body.num,type];
+		}
+		else{
+			sqlinsert = "insert into question (questionaire_id, title, type) values(?,?,?)";
+			param = [id,title,type];
 		}
         let ret = await conn.query(sqlinsert,param);
 		callback(undefined, ret[0].insertId);
@@ -173,11 +173,6 @@ exported.casquestion = async function (req, callback) {
 			let description = req.body.a + "|" + req.body.b +  "|" + req.body.c + "|" + req.body.d;
 			param = [id,title,description,type,'1',father_id];
 		}
-		else if (type == "0" || type == "3" || type == "4" || type == "5"){
-			sqlinsert = 
-			"insert into question (questionaire_id, title, type, ischild,parentid) values(?,?,?,?,?)";
-			param = [id,title,type,'1',father_id];;
-		}
 		else if (type == "6"){
 			sqlinsert = 
 			"insert into question (questionaire_id, title, description, type, ischild,parentid) values(?,?,?,?,?,?)";
@@ -186,6 +181,11 @@ exported.casquestion = async function (req, callback) {
 		else if (type == "7"){
 			sqlinsert = "insert into question (questionaire_id, title, description, type, ischild,parentid) values(?,?,?,?,?,?)";
 			param = [id,title,req.body.num,type,'1',father_id];;
+		}
+		else{
+			sqlinsert = 
+			"insert into question (questionaire_id, title, type, ischild,parentid) values(?,?,?,?,?)";
+			param = [id,title,type,'1',father_id];;
 		}
 		let ret = await conn.query(sqlinsert,param);
 		

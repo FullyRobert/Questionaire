@@ -69,14 +69,17 @@ exported.getdata = async (req, ress, res, callback) => {
 		let length = user[0].length;
 		let data =[];
 		for (var i =0;i<res.length;i++){
-			if (parseInt(res[i].type)>=3 && parseInt(res[i].type)<=6){
+			if (parseInt(res[i].type)>=3 && parseInt(res[i].type)<=6 || parseInt(res[i].type)==8 || parseInt(res[i].type)==9){
 				//获取答案
 				sql = "select * from data_question where question_id = ?";
 				let answer = await conn.query(sql, res[i].id);
 				//如果是文本问题，返回用户名和答案组成的数组
-				if (res[i].type=="3" || res[i].type=="4"){
-					username = getname(answer[0][0].record_id,user[0]);
-					let text = gettext(username,answer[0]);
+				if (res[i].type=="3" || res[i].type=="4" || res[i].type=="8" || res[i].type=="9"){
+					let text = [];
+					for (var j=0; j<answer[0].length; j++){
+						username = getname(answer[0][j].record_id,user[0]);
+						text.push([username,answer[0][j].answer]);
+					}
 					data.push(text);
 				}
 				//如果是数字问题，返回由平均数、中位数、总和组成的数组
@@ -85,7 +88,7 @@ exported.getdata = async (req, ress, res, callback) => {
 					let sum = Sum(value);
 					let avg = sum/value.length;
 					let mid = Mid(value);
-					data.push([sum,avg,mid]);
+					data.push([sum.toFixed(2),avg.toFixed(2),mid.toFixed(2)]);
 				}
 			}
 			else{
@@ -200,12 +203,5 @@ getname = function(id,user){
 			return user[i].username;
 }
 
-gettext = function(username,answer){
-	let arr = [];
-	for (var i =0; i<answer.length; i++){
-		arr.push([username,answer[i].answer]);
-	}
-	return arr;
-}
 
 module.exports = exported;

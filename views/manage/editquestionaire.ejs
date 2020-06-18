@@ -142,6 +142,8 @@
                         <option value="5">整数</option>
                         <option value="6">小数</option>
                         <option value="7">评分</option>
+                        <option value="8">地理位置</option>
+                        <option value="9">日期</option>
                       </select>
                     </div>
 
@@ -247,6 +249,8 @@
                         <option value="5">整数</option>
                         <option value="6">小数</option>
                         <option value="7">评分</option>
+                        <option value="8">地理位置</option>
+                        <option value="9">日期</option>
                       </select>
                     </div>
           
@@ -413,6 +417,15 @@
                             </tr>
                           </tbody>
                         </table>
+                        <% } else if (details[i].type == 8) {%>
+                        <!-- 地理位置 -->
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i class="text-danger"><%= alert %></i> </label>
+                        <input type="text" id="question<%= i+1 %>" class="form-control" placeholder="点击以获取您的地理位置"
+                          name="<%= i+1 %>">
+                        <!-- 时间 -->
+                        <% } else if (details[i].type == 9){ %>
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i class="text-danger"><%= alert %></i> </label>
+                        <input type="date" id="question<%= i+1 %>" class="form-control" name="<%= i+1 %>">
                         <% } %>
                       </div>
                       <% } %>
@@ -474,10 +487,6 @@
         $("#type1").show();
         $("#type2").hide();
         $("#type3").hide();
-      } else if ($(this).val() == 0 || $(this).val() == 3 || $(this).val() == 4 || $(this).val() == 5) {
-        $("#type1").hide();
-        $("#type2").hide();
-        $("#type3").hide();
       }
       else if ($(this).val() == 6) {
         $("#type1").hide();
@@ -488,16 +497,16 @@
         $("#type1").hide();
         $("#type2").hide();
         $("#type3").show();
+      }else{
+        $("#type1").hide();
+        $("#type2").hide();
+        $("#type3").hide();
       }
 
     });
     $("#cascadetype").change(function () {
       if ($(this).val() == 1 || $(this).val() == 2) {
         $("#type4").show();
-        $("#type5").hide();
-        $("#type6").hide();
-      } else if ($(this).val() == 0 || $(this).val() == 3 || $(this).val() == 4 || $(this).val() == 5) {
-        $("#type4").hide();
         $("#type5").hide();
         $("#type6").hide();
       }
@@ -510,6 +519,10 @@
         $("#type4").hide();
         $("#type5").hide();
         $("#type6").show();
+      } else{
+        $("#type4").hide();
+        $("#type5").hide();
+        $("#type6").hide();
       }
 
     });

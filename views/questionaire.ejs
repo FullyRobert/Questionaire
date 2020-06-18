@@ -157,7 +157,7 @@
                                 <label class="display-inline-block custom-control custom-radio ml-1">
                                   <input type="radio" name="<%= details[i].id %>" name="customer1" value="1"
                                     class="custom-control-input yes"
-                                    id="<%= details[i].childyes %>|<%= details[i].childno %>">
+                                    no="<%= details[i].childno %>" yes="<%= details[i].childyes %>">
                                   <span class="custom-control-indicator"></span>
                                   <span class="custom-control-description ml-0">&nbsp是</span>
                                 </label>
@@ -165,7 +165,7 @@
                                 <label class="display-inline-block custom-control custom-radio ml-1">
                                   <input type="radio" name="<%= details[i].id %>" name="customer1" value="0"
                                     class="custom-control-input no"
-                                    id="<%= details[i].childno %>|<%= details[i].childyes %>">
+                                    no="<%= details[i].childno %>" yes="<%= details[i].childyes %>">
                                   <span class="custom-control-indicator"></span>
                                   <span class="custom-control-description ml-0">&nbsp否</span>
                                 </label>
@@ -237,6 +237,13 @@
                                   </tr>
                                 </tbody>
                               </table>
+                              <% } else if (details[i].type == 8) {%>
+                              <label for="eventInput4"> <%= details[i].title %></label>
+                              <input type="text" id="question<%= i+1 %>" class="form-control location" placeholder="请点击按钮以获取您的地理位置"
+                                name="<%= details[i].id %>">
+                              <% } else if (details[i].type == 9) {%>
+                              <label for="eventInput4"> <%= details[i].title %></label>
+                              <input type="date" id="question<%= i+1 %>" class="form-control" name="<%= details[i].id %>">
                               <% } %>
                             </div>
                             <% } %>
@@ -290,21 +297,39 @@
     $(document).ready(function () {
       $(".child").hide();
       $('#login').modal("show");
-      console.log(id);
     });
     $(".yes").click(function () {
-      var id = $(this).attr("id").split("|");
-      var yes = "." + id[0];
-      var no = "." + id[1];
+      var yes = "."+$(this).attr("yes");
+      var no = "."+$(this).attr("no");
       $(yes).show();
-      $(no).hide();
+      $(no).hide(function(){
+        var list =[];
+        if (typeof($(this).find(".yes").attr("yes"))!="undefined")
+          list.push("."+$(this).find(".yes").attr("yes"));
+        if (typeof($(this).find(".yes").attr("no"))!="undefined")
+          list.push("."+$(this).find(".yes").attr("no"));
+        for (var i=0; i<list.length; i++){
+          $(list[i]).hide();
+        }
+      });
     });
     $(".no").click(function () {
-      var id = $(this).attr("id").split("|");
-      var yes = "." + id[1];
-      var no = "." + id[0];
+      var yes = "."+$(this).attr("yes");
+      var no = "."+$(this).attr("no");
       $(no).show();
-      $(yes).hide();
+      $(yes).hide(function(){
+        var list =[];
+        if (typeof($(this).find(".yes").attr("yes"))!="undefined")
+          list.push("."+$(this).find(".yes").attr("yes"));
+        if (typeof($(this).find(".yes").attr("no"))!="undefined")
+          list.push("."+$(this).find(".yes").attr("no"));
+        for (var i=0; i<list.length; i++){
+          $(list[i]).hide();
+        }     
+      });
+    });
+    $(".location").click(function () {
+      $(this).val("浙江省 杭州市 西湖区")
     });
     $("#submit").click(function () {
       var data = $('#form1').serialize();

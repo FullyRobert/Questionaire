@@ -292,16 +292,25 @@
                               </tr>
                             </tbody>
                           </table>
-                          <% } %>
+                          <% } else if (details[i].type == 8) {%>
+                        <!-- 地理位置 -->
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i class="text-danger"><%= alert %></i> </label>
+                        <input type="text" id="question<%= i+1 %>" class="form-control" placeholder="点击以获取您的地理位置"
+                          name="<%= i+1 %>">
+                        <!-- 时间 -->
+                        <% } else if (details[i].type == 9){ %>
+                        <label for="eventInput4"><%= i+1 %>. <%= details[i].title %> &nbsp <i class="text-danger"><%= alert %></i> </label>
+                        <input type="date" id="question<%= i+1 %>" class="form-control" name="<%= i+1 %>">
+                        <% } %>
                         </div>
                         <h6>统计结果：</h6>
                         <% if (details[i].type == 0 || details[i].type ==1 || details[i].type ==2 || details[i].type==7){ %>
                         <div id="simple-pie-chart<%= i %>" class="height-200"></div>
-                        <% } else if (details[i].type ==3 || details[i].type ==4){%>
+                        <% } else if (details[i].type ==3 || details[i].type ==4 || details[i].type ==8 || details[i].type ==9){%>
                         <table class="table table-hover table-striped">
                           <tbody>
                             <th>用户名</th>
-                            <th>填写内容</th>
+                            <th>答案</th>
                             <% for (var n = 0; n < datas[i].length; n++) { %>
                             <tr>
                               <td><%= datas[i][n][0] %></td>

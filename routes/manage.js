@@ -124,8 +124,7 @@ router.post("/delquestion", function(req, res) {
 	if (!req.session.token) {
 		res.send("<script>alert('登录态过期，请重新登录!');window.location.href='/';</script>").end();
 		return;
-	}
-	
+	}	
 	mmodel.delquestion(req, res, (err, result) => {
 		if (err) {
 			console.log(err);
