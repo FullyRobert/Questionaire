@@ -332,7 +332,6 @@
       $(this).val("浙江省 杭州市 西湖区")
     });
     $("#submit").click(function () {
-      var data = $('#form1').serialize();
       var id = $(this).attr("questionaire");
       var url = "/questionaire/submit?id="+id;
       $.ajax({
@@ -343,7 +342,7 @@
         success: function (data) {
           if (data.status == 1) {
             alert("提交成功");
-            window.close();
+            window.location.reload();
           }
           else if (data.status == 0) {
             alert("您输入的信息不完整");

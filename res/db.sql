@@ -1,4 +1,4 @@
-DROP Database questionaire;
+DROP Database IF EXISTS `questionaire`;
 create Database questionaire;
 USE questionaire;
 SET FOREIGN_KEY_CHECKS=0;
@@ -9,14 +9,13 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(11) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '用户名',
-  `password` varchar(32) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '密码',
-  `dateOfBirth` char(12) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '出生日期',
-  `phoneNumber` varchar(64) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '手机号',
-  `emailAddr` varchar(64) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '邮箱',
+  `username` varchar(11) CHARACTER SET utf8 DEFAULT NULL COMMENT '用户名',
+  `password` varchar(32) CHARACTER SET utf8 DEFAULT NULL COMMENT '密码',
+  `dateOfBirth` char(12) CHARACTER SET utf8 DEFAULT NULL COMMENT '出生日期',
+  `phoneNumber` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '手机号',
+  `emailAddr` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '邮箱',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- ----------------------------
 -- Records of user
 -- ----------------------------
@@ -54,7 +53,6 @@ insert into questionaire (user_id, title, description, status, cur_num,begin_tim
 -- ----------------------------
 -- Table structure for `question`
 -- ----------------------------
---type说明：1单选 2多选 3单行文本框 4多行文本框 5数字框 6小数框 7评分框 8（预留）地理位置框 9(预留)时间
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -71,7 +69,6 @@ CREATE TABLE `question` (
   KEY `questionaire_id` (`questionaire_id`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`questionaire_id`) REFERENCES `questionaire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- ----------------------------
 -- Records of question
 -- ----------------------------
@@ -135,7 +132,6 @@ CREATE TABLE `data_record` (
   KEY `questionaire_id` (`questionaire_id`),
   CONSTRAINT `record_ibfk_1` FOREIGN KEY (`questionaire_id`) REFERENCES `questionaire` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- ----------------------------
 -- Records of question
 -- ----------------------------
